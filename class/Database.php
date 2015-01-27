@@ -33,6 +33,6 @@
 
   	public function bind( $param, $value, $type = null )
   	{
-  		
+  		111
   	}
   }
