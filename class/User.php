@@ -1,19 +1,19 @@
 <?php
+  include ( "Database.php" );
   class User
   {
   	private $userRoles = array();
 
   	public function __construct($user_id)
   	{
-  		$conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD);
-  		$sql = "SELECT * FROM user WHERE user_id = :user_id";
-  		$st = $conn->prepare( $sql );
-  		$st->bindValue( ":user_id", $user_id, PDO::PARAM_STR );
-  		$st->execute();
+  		$conn = new Database();
+  		$conn->query("SELECT * FROM user WHERE user_id = :user_id");
+  		$conn->bind( ":user_id", $user_id );
+  		$conn->execute();
 
-  		if($st->rowCount() == 1)
+  		if($conn->rowCount() == 1)
   		{
-  			$userData = $st->fetch( PDO::FETCH_ASSOC );
+  			$userData = $conn->singleFetch();
   			$this->user_id = $user_id;
   			$this->username = ucfirst( $userData['username'] );
   			$this->email = $userData['email'];
@@ -23,17 +23,23 @@
 
   	public static function loadRoles()
   	{
-  		$conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-  		$sql = "SELECT user_role.role_id, role.role_name FROM user_role JOIN role
-  		ON user_role.role_id = role.role_id WHERE user_role.user_id = :user_id";
-  		$st = $conn->prepare( $sql );
-  		$st->bindValue( ":user_id", $this->user_id, PDO::PARAM_STR );
-  		$st->execute();
+  		$conn = new Database();
+  		$conn->query("SELECT user_role.role_id, role.role_name FROM user_role JOIN role
+  		ON user_role.role_id = role.role_id WHERE user_role.user_id = :user_id");
+  		$conn->bind( ":user_id", $this->user_id );
+  		$conn->execute();
 
-  		while($row = $st->fetch( PDO::FETCH_ASSOC ) )
+      $row = $conn->allFetch();
+
+      foreach ( $row["role_name"] as $rname && $row["role_id"] as $rid )
+      {
+        $this->userRoles[$rname] = Role::getRole($rid);
+      }
+
+  		/*while($row = $st->fetch( PDO::FETCH_ASSOC ) )
   		{
   			$this->userRoles[$row["role_name"]] = Role::getRole($row["role_id"]);
-  		}
+  		}*/
   	}
 
   	public function hasPermission($permission)

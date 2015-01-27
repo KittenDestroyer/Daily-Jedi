@@ -6,7 +6,7 @@
 <?php foreach( $results["article"] as $article ) { ?>
   <h2>
     <dt><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id ?>"><?php echo htmlspecialchars( $article->title )?></a></dt>
-      <dd class="sampleContent"><?php echo cut($article->content, 150); ?><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id ?>">...</a></dd>
+      <dd class="sampleContent"><?php echo cut($article->content, 150); ?><a href=".?action=viewArticle&amp;articleId=<?php echo $article->id?>">...</a></dd>
       <dd class="pubDate"><?php echo date('j F', $article->pubDate ) ?></dd>
   </h2>
 <?php } ?>
