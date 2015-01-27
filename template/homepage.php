@@ -1,5 +1,6 @@
 <?php include "header.php"; ?>
   <div id="lightSide">
+  <a href="test.php">Test</a>
   <div class="content">
     <dl>
 <?php foreach( $results["article"] as $article ) { ?>
