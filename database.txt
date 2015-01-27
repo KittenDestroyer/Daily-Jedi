@@ -1,0 +1,10 @@
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| user_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username  | varchar(25) | YES  |     | NULL    |                |
+| password  | varchar(25) | YES  |     | NULL    |                |
+| firstName | varchar(25) | YES  |     | NULL    |                |
+| lastName  | varchar(25) | YES  |     | NULL    |                |
+| email     | varchar(30) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
