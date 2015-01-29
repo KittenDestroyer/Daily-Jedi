@@ -35,5 +35,7 @@
 }
 ?> 
   </div>
+  <a href="admin.php?action=listUsers">View Padawans</a>
+  <a href="admin.php?action=listArticles">View Articles</a>
   </div>
 <?php include('footer.php'); ?>

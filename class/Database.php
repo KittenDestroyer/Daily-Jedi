@@ -1,5 +1,6 @@
 <?php
-  ini_set("memory_limit","36M");
+error_reporting(E_ALL);
+ini_set( "display_errors", 1 );
   class Database
   {
   	private $dsn = DB_DSN;
@@ -102,3 +103,4 @@
       return $this->stmt->debugDumpParams();
     }
   }
+?>

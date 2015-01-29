@@ -15,5 +15,6 @@
       <input class="button" type="submit" name="login" value="Login" />
   </div>
     </form>
+    <a href="admin.php?action=register">Registration</a>
   </div>
 <?php include( "footer.php"); ?>

@@ -1,7 +1,7 @@
 <?php
 ini_set( "display_errors", true );
 date_default_timezone_set( "Europe/Kiev");
-define( "DB_DSN", "mysql:host=localhost;dbname=workdb" );
+define( "DB_DSN", "mysql:host=localhost;dbname=work" );
 define( "DB_USERNAME", "root" );
 define( "DB_PASSWORD", "111" );
 define( "CLASS_PATH", "/var/www/html/test.com/class" );
@@ -10,11 +10,13 @@ define( "HOMEPAGE_NUM_ARTICLES", 5 );
 define( "ADMIN_USERNAME", "admin" );
 define( "ADMIN_PASSWORD", "123" );
 require( CLASS_PATH . "/Article.php" );
+require( CLASS_PATH . "/User.php" );
+require( CLASS_PATH . "/Database.php" );
 
-function handleException( $exception ) {
+/*function handleException( $exception ) {
 	echo "Error: ";
 	error_log( $exception->getMessage() );
 }
 
-set_exception_handler( 'handleException' );
+set_exception_handler( 'handleException' );*/
 ?>

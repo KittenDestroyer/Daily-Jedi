@@ -1,5 +1,4 @@
 <?php
-  include( "Database.php" );
   class Role
   {
   	protected $permissions;

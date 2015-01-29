@@ -1,11 +1,10 @@
 <?php
- 
 require( "config.php" );
 session_start();
 $action = ( isset( $_GET['action'] ) ? $_GET['action'] : "" );
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
 
-if ( $action != "login" && $action != "logout" && !$username ) {
+if ( $action != "login" && $action != "logout" && $action != "register" && !$username ) {
 	login();
 	exit;
 }
@@ -13,6 +12,12 @@ if ( $action != "login" && $action != "logout" && !$username ) {
 switch ( $action ) {
 	case 'login':
 	  login();
+	  break;
+	case 'register':
+	  register();
+	  break;
+	case 'listUsers':
+	  listUsers();
 	  break;
 	case 'logout':
 	  logout();
@@ -37,16 +42,41 @@ function login() {
 
 	if( isset( $_POST['login'] ) ) {
 
-		if( $_POST['username'] == ADMIN_USERNAME && $_POST['password'] == ADMIN_PASSWORD ) {
-			$_SESSION['username'] = ADMIN_USERNAME;
-			header("Location: admin.php");
-		} else {
-			$results['errorMessage'] = "You've entered incorrect username or password. Try again";
-			require(TEMPLATE_PATH . "/loginForm.php");
-		}
+			$user = new User();
+			$user->storeForm( $_POST );
+			if ($user->login()) {
+				$_SESSION['username'] = $_POST['username'];
+				$results['statusMessage'] = "Hello" . $_POST['username'];
+				header("Location: admin.php");
+			} else {
+				$results['errorMessage'] = "Invalid password";
+				require(TEMPLATE_PATH . "/loginForm.php");
+			}
 	} else {
 		require(TEMPLATE_PATH . "/loginForm.php");
 	}
+}
+
+function register() {
+
+	$results = array();
+	$results['pageTitle'] = "Join the dark side";
+
+	if( isset( $_POST['register'] ) ) {
+			$user = new User();
+			$user->storeForm( $_POST );
+			$user->insert();
+			header("Location: admin.php");
+		} else {
+			require(TEMPLATE_PATH . "/regForm.php");
+	}
+}
+
+function listUsers() {
+	$results = array();
+	$results['pageTitle'] = "Padawans";
+	$data = User::listUsers();
+	require(TEMPLATE_PATH . "/listArticles.php");
 }
 
 function logout() {

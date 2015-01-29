@@ -1,5 +1,4 @@
 <?php
-  include( "Database.php" );
   class Article {
 
   public $id;
