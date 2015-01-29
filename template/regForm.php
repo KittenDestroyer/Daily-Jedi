@@ -2,7 +2,7 @@
   <div id="darkSide">  
     <form action="admin.php?action=register" method="post">
       <input type="hidden" name="register" value="true" />
-      <input type="hidden" name="role_id" value="4" />
+      <input type="hidden" name="role_id" value="user" />
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
   <div class="errorMessage"><?php echo $results['errorMessage'] ?></div>
 <?php } ?>

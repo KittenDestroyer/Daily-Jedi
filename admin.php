@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require( "config.php" );
 session_start();
 $action = ( isset( $_GET['action'] ) ? $_GET['action'] : "" );
@@ -18,6 +20,9 @@ switch ( $action ) {
 	  break;
 	case 'listUsers':
 	  listUsers();
+	  break;
+	case 'editUser':
+	  editUser();
 	  break;
 	case 'logout':
 	  logout();
@@ -45,7 +50,8 @@ function login() {
 			$user = new User();
 			$user->storeForm( $_POST );
 			if ($user->login()) {
-				$_SESSION['username'] = $_POST['username'];
+				$_SESSION['username'] = $user->username;
+				$_SESSION['role_id'] = $user->role_id;
 				$results['statusMessage'] = "Hello" . $_POST['username'];
 				header("Location: admin.php");
 			} else {
@@ -76,7 +82,29 @@ function listUsers() {
 	$results = array();
 	$results['pageTitle'] = "Padawans";
 	$data = User::listUsers();
-	require(TEMPLATE_PATH . "/listArticles.php");
+	$results['users'] = $data['results'];
+	require(TEMPLATE_PATH . "/listUsers.php");
+}
+
+function editUser() {
+
+	$results = array();
+	$results['pageTitle'] = "Edit user";
+
+	if ( isset( $_POST['saveChanges'] ) ) {
+		if ( !$user = User::getUser( (int) $_POST['userId'] ) ) {
+			header("Location: admin.php?error=userNotFound");
+			return;
+		}
+		$user->storeForm( $_POST );
+		$user->update();
+		header("Location: admin.php?status=changesSaved");
+	} elseif ( isset( $_POST['cancel'] ) ) {
+		header("Location: admin.php?action=listUsers");
+	} else {
+		$results['user'] = User::getUser( (int) $_GET['userId'] );
+		require(TEMPLATE_PATH . "/editUser.php");
+	}
 }
 
 function logout() {
