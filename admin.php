@@ -149,6 +149,19 @@ function deleteUser() {
 	header("Location: admin.php?action=listUsers");
 }
 
+function upload() {
+	if( isset( $_POST['upload'] ) ) {
+		move_uploaded_file($_FILES["image"]["tmp_name"],"/var/www/html/test.com/images/" . $_FILES["image"]["name"]);
+		$imagepath = "/var/www/html/test.com/images/".$_FILES["image"]["name"];
+		$user_id = $_POST['id'];
+		$image = new Image();
+		$image->insert( $user_id, $imagepath );
+		header("Location: admin.php");
+	} else {
+		require(TEMPLATE_PATH . "/editUser.php");
+	}
+}
+
 function logout() {
 	
 	unset($_SESSION['username']);

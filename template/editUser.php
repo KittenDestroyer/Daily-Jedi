@@ -2,11 +2,17 @@
   <div id="darkSide">
   <div class="adminHeader">
     <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout">Log out</a></p>
+    <p><img src="<?php echo $results["image"]; ?>" alt="Avatar" /></p>
   </div>
-    <form action="admin.php?action=editUser" method ="post">
-      <input type="hidden" name="userId" value="<?php echo $results['user']->id ?>" />
     <dl>
 <?php if ( $_SESSION['role_id'] == "admin" || $_GET['userId'] == $_SESSION['id'] ) { ?>
+    <form enctype="multipart/form-data" action="admin.php?action=upload" method="post">
+      <input type="hidden" name="id" value="<?php echo $results['user']->id ?>" />
+      <input name="image" accept="image/jpeg" type="file">
+      <input name="upload" value="Submit" type="submit">
+    </form>
+    <form action="admin.php?action=editUser" method ="post">
+      <input type="hidden" name="userId" value="<?php echo $results['user']->id ?>" />
       <dt><label for="username">Username:</label></dt>
         <dd><input type="text" id="username" name="username" placeholder="Username" required autofocus maxlength="20" value="<?php echo $results['user']->username ?>" /></dd>
       <dt><label for="password">Password:</label></dt>

@@ -13,6 +13,7 @@ define( "ADMIN_PASSWORD", "123" );
 require( CLASS_PATH . "/Article.php" );
 require( CLASS_PATH . "/User.php" );
 require( CLASS_PATH . "/Database.php" );
+require( CLASS_PATH . "/Image.php" );
 
 function handleException( $exception ) {
 	echo "Error: ";

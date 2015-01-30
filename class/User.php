@@ -1,23 +1,23 @@
 <?php
   class User {
 
-  	public $id;
+    public $id;
     public $role_id;
-  	public $username;
-  	public $email;
+    public $username;
+    public $email;
     public $password;
 
-  	public function __construct($data = array()) {
-  		if ( isset($data['id'] ) ) $this->id = $data['id'];
-  		if ( isset($data['username'] ) ) $this->username = $data['username'];
+    public function __construct($data = array()) {
+      if ( isset($data['id'] ) ) $this->id = $data['id'];
+      if ( isset($data['username'] ) ) $this->username = $data['username'];
       if ( isset($data['password'] ) ) $this->password = $data['password'];
-  		if ( isset($data['email'] ) ) $this->email = $data['email'];
+      if ( isset($data['email'] ) ) $this->email = $data['email'];
       if ( isset($data['role_id'] ) ) $this->role_id = $data['role_id'];
-  	}
+    }
 
-  	public function storeForm( $params ) {
-  		$this->__construct( $params );
-  	}
+    public function storeForm( $params ) {
+      $this->__construct( $params );
+    }
 
     public function login() {
       $conn = new Database();
@@ -32,7 +32,7 @@
       }
     }
 
-  	public static function getUser( $id ) {
+    public static function getUser( $id ) {
       $conn = new Database();
       $conn->query("SELECT * FROM user WHERE id = :id");
       $conn->bind( ":id", $id );
