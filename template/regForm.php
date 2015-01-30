@@ -11,10 +11,6 @@
         <dd><input type="text" name="username" id="username" placeholder="Username" required autofocus maxlength="20" /></dd>
       <dt><label for="password">Password:</label></dt>
         <dd><input type="text" name="password" id="password" placeholder="Password" maxlenght="20" /></dd>
-      <dt><label for="firstName">First Name:</label></dt>
-        <dd><input type="text" name="firstName" id="firstName" placeholder="First Name" maxlenght="20" /></dd>
-      <dt><label for="lastName">Last Name:</label></dt>
-        <dd><input type="text" name="lastName" id="lastName" placeholder="Last Name" maxlenght="20" /></dd>
       <dt><label for="email">E-mail:</label></dt>
         <dd><input type="text" name="email" id="email" placeholder="E-mail" maxlenght="20" /></dd>
     </dl>

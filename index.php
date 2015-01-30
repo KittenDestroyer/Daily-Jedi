@@ -2,7 +2,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require( "config.php" );
+session_start();
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
+$username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
+
+if ( $_SESSION['role_id'] == "banned" ) {
+	unset($_SESSION['username']);
+	header("Location: banned.php");
+}
 
 switch ( $action ) {
 	case 'archive':

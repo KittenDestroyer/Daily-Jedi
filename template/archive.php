@@ -1,5 +1,10 @@
 <?php include "header.php"; ?>
   <div id="lightSide">
+<?php if (isset( $_SESSION['username'] ) ) { ?>
+	  <div class="adminHeader">
+	    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout">Log out</a></p>
+	  </div>
+<?php } ?>
     <dl class="content">
 <?php foreach ( $results['article'] as $article ) { ?>
   <h2>

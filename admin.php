@@ -11,6 +11,8 @@ if ( $action != "login" && $action != "logout" && $action != "register" && !$use
 	exit;
 }
 
+
+
 switch ( $action ) {
 	case 'login':
 	  login();
@@ -23,6 +25,12 @@ switch ( $action ) {
 	  break;
 	case 'editUser':
 	  editUser();
+	  break;
+	case 'upload':
+	  upload();
+	  break;
+	case 'deleteUser':
+	  deleteUser();
 	  break;
 	case 'logout':
 	  logout();
@@ -45,20 +53,34 @@ function login() {
 	$results = array();
 	$results['pageTitle'] = "Join the dark side";
 
-	if( isset( $_POST['login'] ) ) {
+	if( isset( $_POST['login'] ) )
+	{
 
 			$user = new User();
 			$user->storeForm( $_POST );
-			if ($user->login()) {
+			if ($user->login())
+			{
+				$id = $user->getId( $_POST['username'] );
+				$_SESSION['id'] = $id;
 				$_SESSION['username'] = $user->username;
-				$_SESSION['role_id'] = $user->role_id;
-				$results['statusMessage'] = "Hello" . $_POST['username'];
-				header("Location: admin.php");
-			} else {
-				$results['errorMessage'] = "Invalid password";
+				$_SESSION['role_id'] = $user->getRole( $id );
+				if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator") {
+					header("Location: admin.php?status=welcomeUser");
+				}
+				else
+				{
+					header("Location: index.php");
+				}
+				
+			}
+			else
+			{
+				header("Location: admin.php?error=wrongPassword");
 				require(TEMPLATE_PATH . "/loginForm.php");
 			}
-	} else {
+	}
+	else
+	{
 		require(TEMPLATE_PATH . "/loginForm.php");
 	}
 }
@@ -68,14 +90,17 @@ function register() {
 	$results = array();
 	$results['pageTitle'] = "Join the dark side";
 
-	if( isset( $_POST['register'] ) ) {
+	if( isset( $_POST['register'] ) )
+	{
 			$user = new User();
 			$user->storeForm( $_POST );
 			$user->insert();
-			header("Location: admin.php");
-		} else {
+			header("Location: admin.php?status=welcomeUser");
+		} 
+		else 
+		{
 			require(TEMPLATE_PATH . "/regForm.php");
-	}
+		}
 }
 
 function listUsers() {
@@ -85,7 +110,6 @@ function listUsers() {
 	$results['users'] = $data['results'];
 	require(TEMPLATE_PATH . "/listUsers.php");
 }
-
 function editUser() {
 
 	$results = array();
@@ -98,13 +122,31 @@ function editUser() {
 		}
 		$user->storeForm( $_POST );
 		$user->update();
-		header("Location: admin.php?status=changesSaved");
+		if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) {
+		  header("Location: admin.php?action=listUsers");
+		} else {
+			header("Location: index.php");
+		}
 	} elseif ( isset( $_POST['cancel'] ) ) {
-		header("Location: admin.php?action=listUsers");
+		if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) {
+		  header("Location: admin.php?action=listUsers");
+		} else {
+			header("Location: index.php");
+		}
 	} else {
 		$results['user'] = User::getUser( (int) $_GET['userId'] );
 		require(TEMPLATE_PATH . "/editUser.php");
 	}
+}
+
+function deleteUser() {
+	if ( !$user = User::getUser( (int) $_GET['userId'] ) ) {
+		header("Location: admin.php?error=userNotFound");
+		return;
+	}
+
+	$user->delete();
+	header("Location: admin.php?action=listUsers");
 }
 
 function logout() {

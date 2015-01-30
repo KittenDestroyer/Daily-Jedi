@@ -6,6 +6,7 @@ define( "DB_USERNAME", "root" );
 define( "DB_PASSWORD", "111" );
 define( "CLASS_PATH", "/var/www/html/test.com/class" );
 define( "TEMPLATE_PATH", "/var/www/html/test.com/template" );
+define( "SAVE_PATH", "/var/www/html/test.com/images" );
 define( "HOMEPAGE_NUM_ARTICLES", 5 );
 define( "ADMIN_USERNAME", "admin" );
 define( "ADMIN_PASSWORD", "123" );
@@ -13,10 +14,10 @@ require( CLASS_PATH . "/Article.php" );
 require( CLASS_PATH . "/User.php" );
 require( CLASS_PATH . "/Database.php" );
 
-/*function handleException( $exception ) {
+function handleException( $exception ) {
 	echo "Error: ";
 	error_log( $exception->getMessage() );
 }
 
-set_exception_handler( 'handleException' );*/
+set_exception_handler( 'handleException' );
 ?>

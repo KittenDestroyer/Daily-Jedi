@@ -42,6 +42,16 @@
       if ( $row ) return new User( $row );
     }
 
+    public static function getId( $username ) {
+      $conn = new Database();
+      $conn->query("SELECT id FROM user WHERE username = :username");
+      $conn->bind( ":username", $username );
+      $conn->execute();
+      $row = $conn->singleFetched();
+      $conn = null;
+      return $row['id'];
+    }
+
     public static function listUsers() {
       $conn = new Database();
       $conn->query("SELECT * FROM user");
@@ -65,7 +75,7 @@
       $conn->bind( ":id", $id );
       $conn->execute();
       $row = $conn->singleFetched();
-      return $row;
+      return $row['role_id'];
     }
 
     public function insert() {

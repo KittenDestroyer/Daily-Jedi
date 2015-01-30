@@ -1,8 +1,7 @@
 <?php include ( "header.php" ); ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p>You are logged in as <b><?php echo htmlspecialchars( $_SESSION['username'] ) ?></b>. <a href="admin.php?action=logout"?>Log out</a></p><br>
-    <p><b><?php echo ( $_SESSION['role_id'] ) ?><b></p>
+    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?>Log out</a></p><br>
   </div>
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
   <div class="errorMessage"><?php echo $results['errorMessage']; ?></div>
