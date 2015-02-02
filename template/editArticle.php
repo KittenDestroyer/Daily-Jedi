@@ -2,6 +2,7 @@
   <div id="darkSide">
   <div class="adminHeader">
     <p>You are logged in as <b><?php echo htmlspecialchars( $_SESSION['username'] ) ?></b>. <a href="admin.php?action=logout">Log out</a></p>
+    <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
     <form action="admin.php?action=<?php echo $results['formAction'] ?>" method ="post">
       <input type="hidden" name="articleId" value="<?php echo $results['article']->id ?>" />

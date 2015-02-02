@@ -18,7 +18,10 @@ p {
 	font-family: 'Open Sans Condensed', sans-serif;
 }
 
-
+#avatar {
+	float:right;
+	clear:both;
+}
 
 #lightSide a {
 	font-family: 'Oswald', sans-serif;
@@ -64,6 +67,7 @@ p {
 	font-family: 'Open Sans Condensed', sans-serif;
 	text-align:center;
 	color:white;
+	clear:both;
 	font-size: 1.2em;
 	margin-left: 100px;
 	margin-right: 100px;

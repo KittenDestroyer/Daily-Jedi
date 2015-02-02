@@ -24,7 +24,7 @@ class Image {
 
     public static function getImage( $id ) {
     	$conn = new Database();
-    	$conn->query("SELECT * FROM images WHERE id = :id");
+    	$conn->query("SELECT * FROM images WHERE user_id = :id");
     	$conn->bind( ":id", $id );
     	$conn->execute();
         $row = $conn->singleFetched();

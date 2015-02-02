@@ -6,6 +6,11 @@ session_start();
 $action = ( isset( $_GET['action'] ) ? $_GET['action'] : "" );
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
 
+if ( $_SESSION['role_id'] == "banned" ) {
+	unset($_SESSION['username']);
+	header("Location: banned.php");
+}
+
 if ( $action != "login" && $action != "logout" && $action != "register" && !$username ) {
 	login();
 	exit;
@@ -19,6 +24,9 @@ switch ( $action ) {
 	  break;
 	case 'register':
 	  register();
+	  break;
+	case 'banned':
+	  banned();
 	  break;
 	case 'listUsers':
 	  listUsers();
@@ -64,6 +72,7 @@ function login() {
 				$_SESSION['id'] = $id;
 				$_SESSION['username'] = $user->username;
 				$_SESSION['role_id'] = $user->getRole( $id );
+				$_SESSION['image'] = Image::getImage( $id );
 				if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator") {
 					header("Location: admin.php?status=welcomeUser");
 				}
@@ -101,6 +110,15 @@ function register() {
 		{
 			require(TEMPLATE_PATH . "/regForm.php");
 		}
+}
+
+function banned() {
+	if( isset( $_POST['logout'] ) ) {
+		unset($_SESSION['username']);
+		header("Location: index.php");
+	} else {
+		require(TEMPLATE_PATH . "/banned.php");
+	}
 }
 
 function listUsers() {
@@ -152,7 +170,7 @@ function deleteUser() {
 function upload() {
 	if( isset( $_POST['upload'] ) ) {
 		move_uploaded_file($_FILES["image"]["tmp_name"],"/var/www/html/test.com/images/" . $_FILES["image"]["name"]);
-		$imagepath = "/var/www/html/test.com/images/".$_FILES["image"]["name"];
+		$imagepath = "images/".$_FILES["image"]["name"];
 		$user_id = $_POST['id'];
 		$image = new Image();
 		$image->insert( $user_id, $imagepath );
@@ -165,7 +183,7 @@ function upload() {
 function logout() {
 	
 	unset($_SESSION['username']);
-	header("Location: admin.php");
+	header("Location: index.php");
 }
  
  

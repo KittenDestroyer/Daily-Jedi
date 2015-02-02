@@ -7,6 +7,7 @@ $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
 
 if ( $_SESSION['role_id'] == "banned" ) {
+	session_destroy();
 	unset($_SESSION['username']);
 	header("Location: banned.php");
 }

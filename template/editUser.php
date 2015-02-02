@@ -2,7 +2,7 @@
   <div id="darkSide">
   <div class="adminHeader">
     <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout">Log out</a></p>
-    <p><img src="<?php echo $results["image"]; ?>" alt="Avatar" /></p>
+    <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
     <dl>
 <?php if ( $_SESSION['role_id'] == "admin" || $_GET['userId'] == $_SESSION['id'] ) { ?>
