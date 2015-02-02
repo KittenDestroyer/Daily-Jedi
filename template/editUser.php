@@ -1,7 +1,7 @@
 <?php include('header.php') ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout">Log out</a></p>
+    <p><?php echo YOU_ARE_LOGGED ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"><?php echo LOGOUT ?></a></p>
     <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
     <dl>
@@ -13,14 +13,14 @@
     </form>
     <form action="admin.php?action=editUser" method ="post">
       <input type="hidden" name="userId" value="<?php echo $results['user']->id ?>" />
-      <dt><label for="username">Username:</label></dt>
+      <dt><label for="username"><?php echo USERNAME ?>:</label></dt>
         <dd><input type="text" id="username" name="username" placeholder="Username" required autofocus maxlength="20" value="<?php echo $results['user']->username ?>" /></dd>
-      <dt><label for="password">Password:</label></dt>
+      <dt><label for="password"><?php echo PASSWORD ?>:</label></dt>
         <dd><input type="password" name="password" id="password" placeholder="Password" required maxlength="30" value="<?php echo $results['user']->password ?>" /></dd>
       <dt><label for="email">E-mail:</label></dt>
         <dd><input type="text" name="email" id="email" placeholder="E-mail" required maxlength="30" value="<?php echo $results['user']->email ?>" /></dd>
 <?php if ( $_SESSION['role_id'] == "admin" ) { ?>
-      <dt><label for="role">Role:</label></dt>
+      <dt><label for="role"><?php echo ROLE ?>:</label></dt>
       <div class="radio">
         <dd><input  type="radio" name="role_id" value="banned">Banned<br>
             <input  type="radio" name="role_id" value="user">User<br>
@@ -31,12 +31,12 @@
 <?php } ?>
     </dl>
   <div>
-      <input class="button" type="submit" name="saveChanges" value="Save changes" />
-      <input class="button" type="submit" formnovalidate name="cancel" value="Cancel" />
+      <input class="button" type="submit" name="saveChanges" value="<?php echo SAVECHANGES ?>" />
+      <input class="button" type="submit" formnovalidate name="cancel" value="<?php echo CANCEL ?>" />
   </div>
     </form>
 <?php if ( $_SESSION['role_id'] == "admin" ) { ?>
-    <p><a href="admin.php?action=deleteUser&amp;userId=<?php echo $results['user']->id ?>" onclick="return confirm('Delete this user?')">Delete user</a></p>
+    <p><a href="admin.php?action=deleteUser&amp;userId=<?php echo $results['user']->id ?>" onclick="return confirm('Delete this user?')"><?php echo DELETE ?></a></p>
 <?php } ?>
 <?php } ?>
   </div>

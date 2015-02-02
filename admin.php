@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require( "config.php" );
+require( "language.php" );
 session_start();
 $action = ( isset( $_GET['action'] ) ? $_GET['action'] : "" );
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
@@ -59,7 +60,7 @@ switch ( $action ) {
 function login() {
 
 	$results = array();
-	$results['pageTitle'] = "Join the dark side";
+	$results['pageTitle'] = LOGIN_TITLE;
 
 	if( isset( $_POST['login'] ) )
 	{
@@ -97,7 +98,7 @@ function login() {
 function register() {
 
 	$results = array();
-	$results['pageTitle'] = "Join the dark side";
+	$results['pageTitle'] = LOGIN_TITLE;
 
 	if( isset( $_POST['register'] ) )
 	{
@@ -123,7 +124,7 @@ function banned() {
 
 function listUsers() {
 	$results = array();
-	$results['pageTitle'] = "Padawans";
+	$results['pageTitle'] = PADAWANS;
 	$data = User::listUsers();
 	$results['users'] = $data['results'];
 	require(TEMPLATE_PATH . "/listUsers.php");
@@ -131,7 +132,7 @@ function listUsers() {
 function editUser() {
 
 	$results = array();
-	$results['pageTitle'] = "Edit user";
+	$results['pageTitle'] = EDIT_USER_TITLE;
 
 	if ( isset( $_POST['saveChanges'] ) ) {
 		if ( !$user = User::getUser( (int) $_POST['userId'] ) ) {
@@ -190,7 +191,7 @@ function logout() {
 function newArticle() {
 
 	$results = array();
-	$results['pageTitle'] = "New article";
+	$results['pageTitle'] = NEW_ARTICLE_TITLE;
 	$results['formAction'] = "newArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -211,7 +212,7 @@ function newArticle() {
 function editArticle() {
 
 	$results = array();
-	$results['pageTitle'] = "Edit article";
+	$results['pageTitle'] = EDIT_ARTICLE_TITLE;
 	$results['formAction'] = "editArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -250,7 +251,7 @@ function listArticles() {
 	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES);
 	$results['articles'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = "Daily Jedi";
+	$results['pageTitle'] = MAIN_TITLE;
 	$totalPages = ceil( $results['totalRows'] / HOMEPAGE_NUM_ARTICLES );
 
 	if ( isset( $_GET['error'] ) ) {

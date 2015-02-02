@@ -7,7 +7,7 @@ body {
 
 
 h1 {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-weight: bold;
 	color: yellow;
 }
@@ -18,13 +18,18 @@ p {
 	font-family: 'Open Sans Condensed', sans-serif;
 }
 
+table {
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:yellow;
+}
+
 #avatar {
 	float:right;
 	clear:both;
 }
 
 #lightSide a {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-size: 20px;
 	text-decoration:none;
 	margin:2em;
@@ -35,7 +40,7 @@ p {
 }
 
 #lightSide a:hover {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-size: 20px;
 	text-decoration:none;
 	margin:2em;
@@ -44,7 +49,7 @@ p {
 }
 
 #darkSide a {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-size: 20px;
 	text-decoration:none;
 	margin:2em;
@@ -54,7 +59,7 @@ p {
 }
 
 #darkSide a:hover {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-size: 20px;
 	text-decoration:none;
 	margin:2em;
@@ -86,13 +91,13 @@ p {
 }
 
 .errorMessage {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-weight: bold;
 	color: yellow;
 }
 
 .statusMessage {
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Russo One', sans-serif;
 	font-weight: bold;
 	color: yellow;
 }
@@ -112,6 +117,8 @@ p {
 }
 
 #totalRows {
+	float:left;
+	clear:both;
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size:1.5em;
 	color:yellow;

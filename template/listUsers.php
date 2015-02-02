@@ -1,7 +1,7 @@
 <?php include ( "header.php" ); ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?>Log out</a></p><br>
+    <p><?php echo YOU_ARE_LOGGED ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo LOGOUT ?></a></p><br>
     <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
@@ -24,7 +24,7 @@
         </h2>
       <?php } ?>
   </div>
-  <a href="admin.php?action=listUsers">View Padawans</a>
-  <a href="admin.php?action=listArticles">View Articles</a>
+  <a href="admin.php?action=listUsers"><?php echo PADAWANS ?></a>
+  <a href="admin.php?action=listArticles"><?php echo ARTICLES ?></a>
   </div>
 <?php include('footer.php'); ?>

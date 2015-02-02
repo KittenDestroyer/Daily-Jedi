@@ -1,7 +1,7 @@
 <?php include ( "header.php" ); ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?>Log out</a></p><br>
+    <p><?php echo YOU_ARE_LOGGED ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo LOGOUT ?></a></p><br>
     <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
@@ -10,16 +10,15 @@
 <?php if ( isset( $results['statusMessage'] ) ) { ?>
   <div class="statusMessage"><?php echo $results['statusMessage']; ?></div>
 <?php } ?>
-  <div id="articleList">
 <?php if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) { ?>
-    <p><a href="admin.php?action=newArticle">Add a New Article</a></p>
+    <p><a href="admin.php?action=newArticle"><?php echo NEW_PUB ?></a></p>
 <?php } ?>
-    <p><a href="admin.php?action=listUsers">View Padawans</a></p>
-    <p><a href="admin.php?action=listArticles">View Articles</a></p>
+    <p><a href="admin.php?action=listUsers"><?php echo PADAWANS ?></a></p>
+    <p><a href="admin.php?action=listArticles"><?php echo ARTICLES ?></a></p>
     <table>
       <tr>
-        <th>Publication Date</th>
-        <th>Article</th>
+        <th><?php echo PUBDATE ?></th>
+        <th><?php echo ARTICLE ?></th>
       </tr>
 <?php foreach ( $results['articles'] as $article) { ?>
       <tr>
@@ -34,7 +33,7 @@
       </tr>
 <?php } ?>
     </table>
-    <p id="totalRows"><?php echo $results['totalRows']?> article<?php echo ( $results['totalRows'] != 1 ) ? 's' : '' ?> in total.</p>
+    <p id="totalRows"><?php echo $results['totalRows']; echo ARTICLE_TOTAL?></p>
 <?php 
   if ( $page > 1 ) {
   echo '<a href="?page='.($page - 1).'">Previous</a>';
@@ -43,6 +42,5 @@
   echo '<a href="?page='.($page + 1).'">Next</a>';
 }
 ?> 
-  </div>
   </div>
 <?php include('footer.php'); ?>
