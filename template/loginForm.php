@@ -6,15 +6,15 @@
   <div class="errorMessage"><?php echo $results['errorMessage'] ?></div>
 <?php } ?>
     <dl>
-      <dt><label for="username"><?php echo $GLOBALS['USERNAME'] ?>:</label></dt>
+      <dt><label for="username"><?php echo $globals['USERNAME'] ?>:</label></dt>
         <dd><input type="text" name="username" id="username" placeholder="Admin username" required autofocus maxlength="20" /></dd>
-      <dt><label for="password"><?php echo $GLOBALS['PASSWORD'] ?>:</label></dt>
+      <dt><label for="password"><?php echo $globals['PASSWORD'] ?>:</label></dt>
         <dd><input type="text" name="password" id="password" plcaeholder="Admin password" maxlenght="20" /></dd>
     </dl>
   <div>
-      <input class="button" type="submit" name="login" value="<?php echo $GLOBALS['LOGIN'] ?>" />
+      <input class="button" type="submit" name="login" value="<?php echo $globals['LOGIN'] ?>" />
   </div>
     </form>
-    <a href="admin.php?action=register"><?php echo $GLOBALS['REGISTRATION'] ?></a>
+    <a href="admin.php?action=register"><?php echo $globals['REGISTRATION'] ?></a>
   </div>
 <?php include( "footer.php"); ?>

@@ -30,7 +30,7 @@ function archive() {
 	$data = Article::getList( $page );
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = $GLOBALS['TITLE_ARCHIVE'];
+	$results['pageTitle'] = $globals['TITLE_ARCHIVE'];
 	require( TEMPLATE_PATH . "/archive.php" );
 }
 
@@ -53,7 +53,7 @@ function homepage() {
 	$results = array();
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = $GLOBALS['MAIN_TITLE'];
+	$results['pageTitle'] = $globals['MAIN_TITLE'];
 	$totalPages = ceil( $results['totalRows'] / HOMEPAGE_NUM_ARTICLES );
 	require( TEMPLATE_PATH . "/homepage.php" );
 }

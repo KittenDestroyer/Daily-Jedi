@@ -1,3 +1,4 @@
+<?php $globals = $GLOBALS['params']; ?>
 <!DOCTYPE html>
 <html>
   <head>

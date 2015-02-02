@@ -63,7 +63,7 @@ switch ( $action ) {
 function login() {
 
 	$results = array();
-	$results['pageTitle'] = $GLOBALS['LOGIN_TITLE'];
+	$results['pageTitle'] = $globals['LOGIN_TITLE'];
 
 	if( isset( $_POST['login'] ) )
 	{
@@ -101,7 +101,7 @@ function login() {
 function register() {
 
 	$results = array();
-	$results['pageTitle'] = $GLOBALS['LOGIN_TITLE'];
+	$results['pageTitle'] = $globals['LOGIN_TITLE'];
 
 	if( isset( $_POST['register'] ) )
 	{
@@ -127,7 +127,7 @@ function banned() {
 
 function listUsers() {
 	$results = array();
-	$results['pageTitle'] = $GLOBALS['PADAWANS'];
+	$results['pageTitle'] = $globals['PADAWANS'];
 	$data = User::listUsers();
 	$results['users'] = $data['results'];
 	require(TEMPLATE_PATH . "/listUsers.php");
@@ -135,7 +135,7 @@ function listUsers() {
 function editUser() {
 
 	$results = array();
-	$results['pageTitle'] = $GLOBALS['EDIT_USER_TITLE'];
+	$results['pageTitle'] = $globals['EDIT_USER_TITLE'];
 
 	if ( isset( $_POST['saveChanges'] ) ) {
 		if ( !$user = User::getUser( (int) $_POST['userId'] ) ) {
@@ -172,6 +172,9 @@ function deleteUser() {
 }
 
 function editSite() {
+	$results = array();
+	$results['pageTitle'] = $globals['EDIT_SITE'];
+	$row = array_replace($results, $globals);
 	if( isset( $_POST['saveChanges'] ) ) {
 
 	} else {
@@ -202,7 +205,7 @@ function logout() {
 function newArticle() {
 
 	$results = array();
-	$results['pageTitle'] = $GLOBALS['NEW_ARTICLE_TITLE'];
+	$results['pageTitle'] = $globals['NEW_ARTICLE_TITLE'];
 	$results['formAction'] = "newArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -223,7 +226,7 @@ function newArticle() {
 function editArticle() {
 
 	$results = array();
-	$results['pageTitle'] = $GLOBALS['EDIT_ARTICLE_TITLE'];
+	$results['pageTitle'] = $globals['EDIT_ARTICLE_TITLE'];
 	$results['formAction'] = "editArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -262,7 +265,7 @@ function listArticles() {
 	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES);
 	$results['articles'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = $GLOBALS['MAIN_TITLE'];
+	$results['pageTitle'] = $globals['MAIN_TITLE'];
 	$totalPages = ceil( $results['totalRows'] / HOMEPAGE_NUM_ARTICLES );
 
 	if ( isset( $_GET['error'] ) ) {

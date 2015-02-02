@@ -1,7 +1,7 @@
 <?php include ( "header.php" ); ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p><?php echo $GLOBALS['YOU_ARE_LOGGED'] ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo $GLOBALS['LOGOUT'] ?></a></p><br>
+    <p><?php echo $globals['YOU_ARE_LOGGED'] ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo $globals['LOGOUT'] ?></a></p><br>
     <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
@@ -24,7 +24,7 @@
         </h2>
       <?php } ?>
   </div>
-  <a href="admin.php?action=listUsers"><?php echo $GLOBALS['PADAWANS'] ?></a>
-  <a href="admin.php?action=listArticles"><?php echo $GLOBALS['ARTICLES'] ?></a>
+  <a href="admin.php?action=listUsers"><?php echo $globals['PADAWANS'] ?></a>
+  <a href="admin.php?action=listArticles"><?php echo $globals['ARTICLES'] ?></a>
   </div>
 <?php include('footer.php'); ?>
