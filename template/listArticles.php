@@ -11,7 +11,7 @@
   <div class="statusMessage"><?php echo $results['statusMessage']; ?></div>
 <?php } ?>
   <div id="articleList">
-<?php if ( $_SESSION['role_id'] == "admin" ) { ?>
+<?php if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) { ?>
     <p><a href="admin.php?action=newArticle">Add a New Article</a></p>
 <?php } ?>
     <p><a href="admin.php?action=listUsers">View Padawans</a></p>
@@ -25,7 +25,7 @@
       <tr>
         <td><?php echo date('j M Y', $article->pubDate)?></td>
         <td>
-<?php if ( $_SESSION['role_id'] == "admin" ) { ?>
+<?php if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) { ?>
           <a href="admin.php?action=editArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title ?></a>
 <?php } else { ?>
           <a href="index.php?action=viewArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title ?></a>
