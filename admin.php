@@ -35,6 +35,9 @@ switch ( $action ) {
 	case 'editUser':
 	  editUser();
 	  break;
+	case 'editSite':
+	  editSite();
+	  break;
 	case 'upload':
 	  upload();
 	  break;
@@ -60,7 +63,7 @@ switch ( $action ) {
 function login() {
 
 	$results = array();
-	$results['pageTitle'] = LOGIN_TITLE;
+	$results['pageTitle'] = $GLOBALS['LOGIN_TITLE'];
 
 	if( isset( $_POST['login'] ) )
 	{
@@ -98,7 +101,7 @@ function login() {
 function register() {
 
 	$results = array();
-	$results['pageTitle'] = LOGIN_TITLE;
+	$results['pageTitle'] = $GLOBALS['LOGIN_TITLE'];
 
 	if( isset( $_POST['register'] ) )
 	{
@@ -124,7 +127,7 @@ function banned() {
 
 function listUsers() {
 	$results = array();
-	$results['pageTitle'] = PADAWANS;
+	$results['pageTitle'] = $GLOBALS['PADAWANS'];
 	$data = User::listUsers();
 	$results['users'] = $data['results'];
 	require(TEMPLATE_PATH . "/listUsers.php");
@@ -132,7 +135,7 @@ function listUsers() {
 function editUser() {
 
 	$results = array();
-	$results['pageTitle'] = EDIT_USER_TITLE;
+	$results['pageTitle'] = $GLOBALS['EDIT_USER_TITLE'];
 
 	if ( isset( $_POST['saveChanges'] ) ) {
 		if ( !$user = User::getUser( (int) $_POST['userId'] ) ) {
@@ -168,6 +171,14 @@ function deleteUser() {
 	header("Location: admin.php?action=listUsers");
 }
 
+function editSite() {
+	if( isset( $_POST['saveChanges'] ) ) {
+
+	} else {
+		require(TEMPLATE_PATH . "/editSite.php");
+	}
+}
+
 function upload() {
 	if( isset( $_POST['upload'] ) ) {
 		move_uploaded_file($_FILES["image"]["tmp_name"],"/var/www/html/test.com/images/" . $_FILES["image"]["name"]);
@@ -191,7 +202,7 @@ function logout() {
 function newArticle() {
 
 	$results = array();
-	$results['pageTitle'] = NEW_ARTICLE_TITLE;
+	$results['pageTitle'] = $GLOBALS['NEW_ARTICLE_TITLE'];
 	$results['formAction'] = "newArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -212,7 +223,7 @@ function newArticle() {
 function editArticle() {
 
 	$results = array();
-	$results['pageTitle'] = EDIT_ARTICLE_TITLE;
+	$results['pageTitle'] = $GLOBALS['EDIT_ARTICLE_TITLE'];
 	$results['formAction'] = "editArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -251,7 +262,7 @@ function listArticles() {
 	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES);
 	$results['articles'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = MAIN_TITLE;
+	$results['pageTitle'] = $GLOBALS['MAIN_TITLE'];
 	$totalPages = ceil( $results['totalRows'] / HOMEPAGE_NUM_ARTICLES );
 
 	if ( isset( $_GET['error'] ) ) {

@@ -1,7 +1,7 @@
 <?php include('header.php') ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p><?php echo YOU_ARE_LOGGED ?> <b><?php echo htmlspecialchars( $_SESSION['username'] ) ?></b>. <a href="admin.php?action=logout"><?php echo LOGOUT ?></a></p>
+    <p><?php echo $GLOBALS['YOU_ARE_LOGGED'] ?> <b><?php echo htmlspecialchars( $_SESSION['username'] ) ?></b>. <a href="admin.php?action=logout"><?php echo $GLOBALS['LOGOUT'] ?></a></p>
     <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
     <form action="admin.php?action=<?php echo $results['formAction'] ?>" method ="post">
@@ -18,12 +18,12 @@
         <dd><input type="date" name="pubDate" id="pubDate" placeholder="YYYY-MM-DD" required maxlength="10" value="<?php echo $results['article']->pubDate ? date('Y-m-d', $results['article']->pubDate) : "" ?>" /></dd>
     </dl>
   <div>
-      <input class="button" type="submit" name="saveChanges" value="<?php echo SAVECHANGES ?>" />
-      <input class="button" type="submit" formnovalidate name="cancel" value="<?php echo CANCEL ?>" />
+      <input class="button" type="submit" name="saveChanges" value="<?php echo $GLOBALS['SAVECHANGES'] ?>" />
+      <input class="button" type="submit" formnovalidate name="cancel" value="<?php echo $GLOBALS['CANCEL'] ?>" />
   </div>
     </form>
 <?php if ( $results['article']->id ) { ?>
-    <p><a href="admin.php?action=deleteArticle&amp;articleId=<?php echo $results['article']->id ?>" onclick="return confirm('Delete this article?')"><?php echo DELETE ?></a></p>
+    <p><a href="admin.php?action=deleteArticle&amp;articleId=<?php echo $results['article']->id ?>" onclick="return confirm('Delete this article?')"><?php echo $GLOBALS['DELETE'] ?></a></p>
 <?php } ?>
   </div>
 <?php include("footer.php"); ?>

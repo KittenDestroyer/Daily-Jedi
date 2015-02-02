@@ -4,6 +4,7 @@ date_default_timezone_set( "Europe/Kiev");
 define( "DB_DSN", "mysql:host=localhost;dbname=work" );
 define( "DB_USERNAME", "root" );
 define( "DB_PASSWORD", "111" );
+define( "TEMPLATE_PATH", "/var/www/html/test.com/template");
 define( "CLASS_PATH", "/var/www/html/test.com/class" );
 define( "SAVE_PATH", "/var/www/html/test.com/images" );
 define( "HOMEPAGE_NUM_ARTICLES", 5 );

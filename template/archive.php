@@ -2,7 +2,7 @@
   <div id="lightSide">
 <?php if (isset( $_SESSION['username'] ) ) { ?>
 	  <div class="adminHeader">
-	    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"><?php echo LOGOUT ?></a></p>
+	    <p>You are logged in as <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"><?php echo $GLOBALS['LOGOUT'] ?></a></p>
       <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
 	  </div>
 <?php } ?>
@@ -14,6 +14,6 @@
   </h2>
 <?php } ?>
     </dl>
-    <p id="totalRows"><?php echo $results['totalRows']; echo ARTICLE_TOTAL?></p>
+    <p id="totalRows"><?php echo $results['totalRows']; echo $GLOBALS['ARTICLE_TOTAL']?></p>
   </div>
 <?php include "footer.php"; ?>

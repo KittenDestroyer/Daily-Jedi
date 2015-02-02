@@ -1,7 +1,7 @@
 <?php include ( "header.php" ); ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p><?php echo YOU_ARE_LOGGED ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo LOGOUT ?></a></p><br>
+    <p><?php echo $GLOBALS['YOU_ARE_LOGGED'] ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo $GLOBALS['LOGOUT'] ?></a></p><br>
     <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
@@ -11,14 +11,15 @@
   <div class="statusMessage"><?php echo $results['statusMessage']; ?></div>
 <?php } ?>
 <?php if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) { ?>
-    <p><a href="admin.php?action=newArticle"><?php echo NEW_PUB ?></a></p>
+    <p><a href="admin.php?action=editSite">Edit site</a></p>
+    <p><a href="admin.php?action=newArticle"><?php echo $GLOBALS['NEW_PUB'] ?></a></p>
 <?php } ?>
-    <p><a href="admin.php?action=listUsers"><?php echo PADAWANS ?></a></p>
-    <p><a href="admin.php?action=listArticles"><?php echo ARTICLES ?></a></p>
+    <p><a href="admin.php?action=listUsers"><?php echo $GLOBALS['PADAWANS'] ?></a></p>
+    <p><a href="admin.php?action=listArticles"><?php echo $GLOBALS['ARTICLES'] ?></a></p>
     <table>
       <tr>
-        <th><?php echo PUBDATE ?></th>
-        <th><?php echo ARTICLE ?></th>
+        <th><?php echo $GLOBALS['PUBDATE'] ?></th>
+        <th><?php echo $GLOBALS['ARTICLE'] ?></th>
       </tr>
 <?php foreach ( $results['articles'] as $article) { ?>
       <tr>
@@ -33,7 +34,7 @@
       </tr>
 <?php } ?>
     </table>
-    <p id="totalRows"><?php echo $results['totalRows']; echo ARTICLE_TOTAL?></p>
+    <p id="totalRows"><?php echo $results['totalRows']; echo $GLOBALS['ARTICLE_TOTAL']?></p>
 <?php 
   if ( $page > 1 ) {
   echo '<a href="?page='.($page - 1).'">Previous</a>';
