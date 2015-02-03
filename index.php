@@ -5,6 +5,7 @@ require( "config.php" );
 require( "language.php" );
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
+$language = ( isset( $_SESSION['lang'] ) ? $_SESSION['lang'] : "en" );
 
 if ( $_SESSION['role_id'] == "banned" ) {
 	session_destroy();
@@ -25,8 +26,15 @@ switch ( $action ) {
 
 function archive() {
 	$page = isset( $_GET['page'] ) ? $_GET['page'] : 1;
+	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$results = array();
-	$data = Article::getList( $page );
+	if ( $_SESSION['lang'] == "en") {
+	  $data = Article::getListen($offset, HOMEPAGE_NUM_ARTICLES );
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+	  $data = Article::getListua($offset, HOMEPAGE_NUM_ARTICLES );
+	} else {
+		return false;
+	}
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
 	$results['pageTitle'] = $GLOBALS['TITLE_ARCHIVE'];
@@ -40,6 +48,13 @@ function viewArticle() {
 	}
 
 	$results = array();
+	if ( $_SESSION['lang'] == "en") {
+	  $results['article'] = Article::getByIden((int) $_GET["articleId"]);
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+	  $results['article'] = Article::getByIdua((int) $_GET["articleId"]);
+	} else {
+		return false;
+	}
 	$results['article'] = Article::getById((int) $_GET["articleId"]);
 	$results['pageTitle'] = $results['article']->title;
 	require( TEMPLATE_PATH . "/viewArticle.php" );
@@ -48,7 +63,13 @@ function viewArticle() {
 function homepage() {
 	$page = isset( $_GET["page"]) ? $_GET["page"] : 1;
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
-	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES );
+	if ( $_SESSION['lang'] == "en") {
+	  $data = Article::getListen($offset, HOMEPAGE_NUM_ARTICLES );
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+	  $data = Article::getListua($offset, HOMEPAGE_NUM_ARTICLES );
+	} else {
+		return false;
+	}
 	$results = array();
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];

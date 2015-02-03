@@ -217,7 +217,13 @@ function newArticle() {
 		
 		$article = new Article;
 		$article->storeFormValues( $_POST );
-		$article->insert();
+		if ( $_SESSION['lang'] == "en") {
+		  $article->inserten();
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+		  $article->insertua();
+		} else {
+			return false;
+		}
 		header("Location: admin.php?status=changesSaved");
 	} elseif ( isset( $_POST['cancel'] ) ) {
 		header("Location: admin.php");
@@ -235,17 +241,33 @@ function editArticle() {
 	$results['formAction'] = "editArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
-		if ( !$article = Article::getById( (int) $_POST['articleId'] ) ) {
-			header("Location: admin.php?error=articleNotFound");
-			return;
+		if ( $_SESSION['lang'] == "en") {
+			$article = Article::getByIden( (int) $_POST['articleId'] );
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+			$article = Article::getByIdua( (int) $_POST['articleId'] );
+		} else {
+			return false;
 		}
 		$article->storeFormValues( $_POST );
-		$article->update();
+		if ( $_SESSION['lang'] == "en") {
+		  $article->updateen();
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+		  $article->updateua();
+		} else {
+			return false;
+		}
 		header("Location: admin.php?status=changesSaved");
 	} elseif ( isset( $_POST['cancel'] ) ) {
 		header("Location: admin.php");
 	} else {
-		$results['article'] = Article::getById( (int) $_GET['articleId'] );
+		if ( $_SESSION['lang'] == "en") {
+			$results['article'] = Article::getByIden( (int) $_GET['articleId'] );
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+			$results['article'] = Article::getByIdua( (int) $_GET['articleId'] );
+		} else {
+			return false;
+		}
+
 		require(TEMPLATE_PATH . "/editArticle.php");
 	}
 }
@@ -253,9 +275,12 @@ function editArticle() {
  
 function deleteArticle() {
 
-	if ( !$article = Article::getById( (int) $_GET['articleId'] ) ) {
-		header("Location: admin.php?error=articleNotFound");
-		return;
+	if ( $_SESSION['lang'] == "en") {
+		$results['article'] = Article::getByIden( (int) $_GET['articleId'] );
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+		$results['article'] = Article::getByIdua( (int) $_GET['articleId'] );
+	} else {
+		return false;
 	}
 
 	$article->delete();
@@ -267,7 +292,13 @@ function listArticles() {
 	$page = isset( $_GET["page"]) ? $_GET["page"] : 1;
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$results = array();
-	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES);
+	if ( $_SESSION['lang'] == "en") {
+	  $data = Article::getListen($offset, HOMEPAGE_NUM_ARTICLES );
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+	  $data = Article::getListua($offset, HOMEPAGE_NUM_ARTICLES );
+	} else {
+		return false;
+	}
 	$results['articles'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
 	$results['pageTitle'] = $globals['MAIN_TITLE'];
