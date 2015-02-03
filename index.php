@@ -55,7 +55,6 @@ function viewArticle() {
 	} else {
 		return false;
 	}
-	$results['article'] = Article::getById((int) $_GET["articleId"]);
 	$results['pageTitle'] = $results['article']->title;
 	require( TEMPLATE_PATH . "/viewArticle.php" );
 }
