@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require( "config.php" );
 require( "language.php" );
-session_start();
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
 
@@ -30,7 +29,7 @@ function archive() {
 	$data = Article::getList( $page );
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = $globals['TITLE_ARCHIVE'];
+	$results['pageTitle'] = $GLOBALS['TITLE_ARCHIVE'];
 	require( TEMPLATE_PATH . "/archive.php" );
 }
 
@@ -53,7 +52,7 @@ function homepage() {
 	$results = array();
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
-	$results['pageTitle'] = $globals['MAIN_TITLE'];
+	$results['pageTitle'] = $GLOBALS['MAIN_TITLE'];
 	$totalPages = ceil( $results['totalRows'] / HOMEPAGE_NUM_ARTICLES );
 	require( TEMPLATE_PATH . "/homepage.php" );
 }

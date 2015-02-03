@@ -1,7 +1,9 @@
 <?php
 /*Language: Ukrainian */
 
-	$params = array();
+	$GLOBALS['params'] = Language::listParamsua();
+
+	/*$params = array();
 
 	$params["TITLE_ARCHIVE"] = "Архів Джедаїв";
 	$params["MAIN_TITLE"] = "Daily Jedi";
@@ -31,5 +33,5 @@
 	$params["CANCEL"] = "Відміна";
 	$params["DELETE"] = "Видалити";
 
-	$GLOBALS['params'] = $params;
+	$GLOBALS['params'] = $params;*/
 ?>

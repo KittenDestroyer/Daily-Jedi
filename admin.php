@@ -1,12 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require( "config.php" );
 require( "language.php" );
-session_start();
 $action = ( isset( $_GET['action'] ) ? $_GET['action'] : "" );
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
-
+$globals = $GLOBALS['params'];
 if ( $_SESSION['role_id'] == "banned" ) {
 	unset($_SESSION['username']);
 	header("Location: banned.php");
@@ -173,10 +170,18 @@ function deleteUser() {
 
 function editSite() {
 	$results = array();
-	$results['pageTitle'] = $globals['EDIT_SITE'];
-	$row = array_replace($results, $globals);
+	//$results['pageTitle'] = $globals['EDIT_SITE'];
 	if( isset( $_POST['saveChanges'] ) ) {
-
+		$language = new Language();
+		$language->storeForm( $_POST );
+		if ( $_POST['lang'] == "en") {
+		  $language->updateen();
+		} elseif ( $_POST['lang'] == "ua" ) {
+			$language->updateua();
+		} else {
+			return false;
+		}
+		header("Location: admin.php?status=changesSaved");
 	} else {
 		require(TEMPLATE_PATH . "/editSite.php");
 	}

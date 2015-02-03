@@ -1,5 +1,6 @@
 <?php
-ini_set( "display_errors", true );
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 date_default_timezone_set( "Europe/Kiev");
 define( "DB_DSN", "mysql:host=localhost;dbname=work" );
 define( "DB_USERNAME", "root" );
@@ -14,6 +15,7 @@ require( CLASS_PATH . "/Article.php" );
 require( CLASS_PATH . "/User.php" );
 require( CLASS_PATH . "/Database.php" );
 require( CLASS_PATH . "/Image.php" );
+require( CLASS_PATH . "/Language.php" );
 
 function handleException( $exception ) {
 	echo "Error: ";

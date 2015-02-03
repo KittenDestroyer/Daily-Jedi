@@ -30,5 +30,4 @@ switch ( $lang ) {
 }
 
 include( 'lang/' . $lang_file );
-
 ?>
