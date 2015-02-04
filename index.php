@@ -21,6 +21,9 @@ switch ( $action ) {
 	case 'viewArticle':
 	  viewArticle();
 	  break;
+	case 'comment':
+	  comment();
+	  break;
 	default:
 	  homepage();
 }
@@ -29,13 +32,8 @@ function archive() {
 	$page = isset( $_GET['page'] ) ? $_GET['page'] : 1;
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$results = array();
-	if ( $_SESSION['lang'] == "en") {
-	  $data = Article::getListen($offset, HOMEPAGE_NUM_ARTICLES );
-	} elseif ( $_SESSION['lang'] == "ua" ) {
-	  $data = Article::getListua($offset, HOMEPAGE_NUM_ARTICLES );
-	} else {
-		return false;
-	}
+	$language = $_SESSION['lang'];
+	$data = Article::getList($language, $offset, HOMEPAGE_NUM_ARTICLES );
 	global $globals;
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
@@ -50,30 +48,29 @@ function viewArticle() {
 	}
 
 	$results = array();
-	if ( $_SESSION['lang'] == "en") {
-	  $results['article'] = Article::getByIden((int) $_GET["articleId"]);
-	} elseif ( $_SESSION['lang'] == "ua" ) {
-	  $results['article'] = Article::getByIdua((int) $_GET["articleId"]);
-	} else {
-		return false;
-	}
+	$results['article'] = Article::getById((int) $_GET["articleId"]);
+	$results['comments'] = Comment::getList((int) $_GET["articleId"]);
 	global $globals;
 	$results['pageTitle'] = $results['article']->title;
 	require( TEMPLATE_PATH . "/viewArticle.php" );
 }
 
+function comment() {
+	if (isset( $_POST['saveChanges'] ) ) {
+	  $comment = new Comment;
+	  $comment->storeForm($_POST);
+	  $comment->insert();
+	  header("Location: index.php?action=viewArticle&articleId=".$_POST['articleId']);
+	} else {
+		require( TEMPLATE_PATH . "/viewArticle.php" );
+	}
+}
+
 function homepage() {
 	$page = isset( $_GET["page"]) ? $_GET["page"] : 1;
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
-	if (isset($_SESSION['lang'] ) ) {
-		if ( $_SESSION['lang'] == "en"  )  {
-		  $data = Article::getListen($offset, HOMEPAGE_NUM_ARTICLES );
-		} elseif ( $_SESSION['lang'] == "ua" ) {
-		  $data = Article::getListua($offset, HOMEPAGE_NUM_ARTICLES );
-		} else {
-			return false;
-		}
-	}
+	$language = $_SESSION['lang'];
+	$data = Article::getList($language, $offset, HOMEPAGE_NUM_ARTICLES );
 	$results = array();
 	global $globals;
 	$results['article'] = $data['results'];

@@ -16,6 +16,7 @@ require( CLASS_PATH . "/User.php" );
 require( CLASS_PATH . "/Database.php" );
 require( CLASS_PATH . "/Image.php" );
 require( CLASS_PATH . "/Language.php" );
+require( CLASS_PATH . "/Comment.php");
 
 function handleException( $exception ) {
 	echo "Error: ";
@@ -23,6 +24,4 @@ function handleException( $exception ) {
 }
 
 set_exception_handler( 'handleException' );
-
-$globals = $GLOBALS['params'];
 ?>

@@ -6,6 +6,7 @@
   </div>
     <form action="admin.php?action=<?php echo $results['formAction'] ?>" method ="post">
       <input type="hidden" name="articleId" value="<?php echo $results['article']->id ?>" />
+      <input type="hidden" name="language" value="<?php echo $_SESSION['lang'] ?>" />
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
   <div class="errorMessage"><?php echo $results['errorMessage'] ?></div>
 <?php } ?>

@@ -23,6 +23,10 @@ table {
 	color:yellow;
 }
 
+table, th, td {
+    border: 1px solid;
+}
+
 #avatar {
 	float:right;
 	clear:both;
@@ -178,6 +182,7 @@ label {
 }
 
 .footer {
+	position:absolute;
 	clear:both;
 	border-top:solid;
 	border-color: yellow;
@@ -195,5 +200,33 @@ label {
 	float:left;
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size:1.3em;
+	color:yellow;
+}
+
+#comments {
+	width:40%;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:yellow;
+}
+
+#comments dt {
+	font-size:0.9em;
+}
+
+#comments dd {
+	font-size:1.3em;
+}
+
+#comment {
+	width:10em;
+	border:solid 1px;
+	border-color:yellow;
+}
+
+#rating {
+	border:solid 1px;
+	background-color: black;
+	position:absolute;
+	margin-left:60em;
 	color:yellow;
 }
