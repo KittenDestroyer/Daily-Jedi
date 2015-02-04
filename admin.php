@@ -1,12 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require( "config.php" );
 require( "language.php" );
-session_start();
 $action = ( isset( $_GET['action'] ) ? $_GET['action'] : "" );
 $username = ( isset( $_SESSION['username'] ) ? $_SESSION['username'] : "" );
-
+$globals = $GLOBALS['params'];
 if ( $_SESSION['role_id'] == "banned" ) {
 	unset($_SESSION['username']);
 	header("Location: banned.php");
@@ -63,6 +60,7 @@ switch ( $action ) {
 function login() {
 
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['LOGIN_TITLE'];
 
 	if( isset( $_POST['login'] ) )
@@ -101,6 +99,7 @@ function login() {
 function register() {
 
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['LOGIN_TITLE'];
 
 	if( isset( $_POST['register'] ) )
@@ -127,6 +126,7 @@ function banned() {
 
 function listUsers() {
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['PADAWANS'];
 	$data = User::listUsers();
 	$results['users'] = $data['results'];
@@ -135,6 +135,7 @@ function listUsers() {
 function editUser() {
 
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['EDIT_USER_TITLE'];
 
 	if ( isset( $_POST['saveChanges'] ) ) {
@@ -173,10 +174,21 @@ function deleteUser() {
 
 function editSite() {
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['EDIT_SITE'];
-	$row = array_replace($results, $globals);
 	if( isset( $_POST['saveChanges'] ) ) {
-
+		$language = new Language();
+		$language->storeForm( $_POST );
+		if (isset($_POST['lang'] ) ) {
+			if ( $_POST['lang'] == "en") {
+			  $language->updateen();
+			} elseif ( $_POST['lang'] == "ua" ) {
+				$language->updateua();
+			} else {
+				return false;
+			}
+		}
+		header("Location: admin.php?status=changesSaved");
 	} else {
 		require(TEMPLATE_PATH . "/editSite.php");
 	}
@@ -205,6 +217,7 @@ function logout() {
 function newArticle() {
 
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['NEW_ARTICLE_TITLE'];
 	$results['formAction'] = "newArticle";
 
@@ -212,7 +225,13 @@ function newArticle() {
 		
 		$article = new Article;
 		$article->storeFormValues( $_POST );
-		$article->insert();
+		if ( $_SESSION['lang'] == "en") {
+		  $article->inserten();
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+		  $article->insertua();
+		} else {
+			return false;
+		}
 		header("Location: admin.php?status=changesSaved");
 	} elseif ( isset( $_POST['cancel'] ) ) {
 		header("Location: admin.php");
@@ -226,21 +245,38 @@ function newArticle() {
 function editArticle() {
 
 	$results = array();
+	global $globals;
 	$results['pageTitle'] = $globals['EDIT_ARTICLE_TITLE'];
 	$results['formAction'] = "editArticle";
 
 	if ( isset( $_POST['saveChanges'] ) ) {
-		if ( !$article = Article::getById( (int) $_POST['articleId'] ) ) {
-			header("Location: admin.php?error=articleNotFound");
-			return;
+		if ( $_SESSION['lang'] == "en") {
+			$article = Article::getByIden( (int) $_POST['articleId'] );
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+			$article = Article::getByIdua( (int) $_POST['articleId'] );
+		} else {
+			return false;
 		}
 		$article->storeFormValues( $_POST );
-		$article->update();
+		if ( $_SESSION['lang'] == "en") {
+		  $article->updateen();
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+		  $article->updateua();
+		} else {
+			return false;
+		}
 		header("Location: admin.php?status=changesSaved");
 	} elseif ( isset( $_POST['cancel'] ) ) {
 		header("Location: admin.php");
 	} else {
-		$results['article'] = Article::getById( (int) $_GET['articleId'] );
+		if ( $_SESSION['lang'] == "en") {
+			$results['article'] = Article::getByIden( (int) $_GET['articleId'] );
+		} elseif ( $_SESSION['lang'] == "ua" ) {
+			$results['article'] = Article::getByIdua( (int) $_GET['articleId'] );
+		} else {
+			return false;
+		}
+
 		require(TEMPLATE_PATH . "/editArticle.php");
 	}
 }
@@ -248,9 +284,12 @@ function editArticle() {
  
 function deleteArticle() {
 
-	if ( !$article = Article::getById( (int) $_GET['articleId'] ) ) {
-		header("Location: admin.php?error=articleNotFound");
-		return;
+	if ( $_SESSION['lang'] == "en") {
+		$results['article'] = Article::getByIden( (int) $_GET['articleId'] );
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+		$results['article'] = Article::getByIdua( (int) $_GET['articleId'] );
+	} else {
+		return false;
 	}
 
 	$article->delete();
@@ -262,9 +301,16 @@ function listArticles() {
 	$page = isset( $_GET["page"]) ? $_GET["page"] : 1;
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$results = array();
-	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES);
+	if ( $_SESSION['lang'] == "en") {
+	  $data = Article::getListen($offset, HOMEPAGE_NUM_ARTICLES );
+	} elseif ( $_SESSION['lang'] == "ua" ) {
+	  $data = Article::getListua($offset, HOMEPAGE_NUM_ARTICLES );
+	} else {
+		return false;
+	}
 	$results['articles'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
+	global $globals;
 	$results['pageTitle'] = $globals['MAIN_TITLE'];
 	$totalPages = ceil( $results['totalRows'] / HOMEPAGE_NUM_ARTICLES );
 

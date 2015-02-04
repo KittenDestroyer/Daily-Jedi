@@ -1,7 +1,9 @@
 <?php
 /*Language: English */
 
-	$params = array();
+	$GLOBALS['params'] = Language::listParamsen();
+
+	/*$params = array();
 
 	$params["TITLE_ARCHIVE"] = "Jedi Archive";
 	$params["MAIN_TITLE"] = "Daily Jedi";
@@ -31,5 +33,5 @@
 	$params["CANCEL"] = "Cancel";
 	$params["DELETE"] = "Delete";
 
-	$GLOBALS['params'] = $params;
+	$GLOBALS['params'] = $params;*/
 ?>

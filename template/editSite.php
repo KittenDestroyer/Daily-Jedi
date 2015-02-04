@@ -7,13 +7,18 @@
     <p><a href="admin.php?action=listUsers"><?php echo $globals['PADAWANS'] ?></a></p>
     <p><a href="admin.php?action=listArticles"><?php echo $globals['ARTICLES'] ?></a></p>
 <?php if ( $_SESSION['role_id'] == "admin" ) { ?>
-	<form action="admin.php?action=editSite" method="post">
-	<dl>
+<?php echo $_SESSION['lang'] ?>
 <?php foreach ( $globals as $key => $value ) { ?>
+  <form action="admin.php?action=editSite" method="post">
+  <input type="hidden" name="parameter" value="<?php echo $key ?>" />
+  <input type="hidden" name="lang" value="<?php echo $_SESSION['lang'] ?>" />
+  <dl>
 	  <dt><label for="<?php echo $key ?>"><?php echo $key ?></label></dt>
-	    <dd><input type="text" name="<?php echo $key ?>" value="<?php echo $value ?>" /></dd>
+	    <dd><input type="text" name="value" value="<?php echo $value ?>" /></dd>
+  </dl>
+  <input type="submit" name="saveChanges" value="Change" />
+  </form>
 <?php } ?>
-	</dl>
-	</form>
+
 <?php } ?>
 <?php include('footer.php') ?>
