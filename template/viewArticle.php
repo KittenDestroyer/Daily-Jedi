@@ -12,7 +12,7 @@
     <form action="index.php?action=vote" method="post">
     <dl>
       <input type="hidden" name="articleId" value="<?php echo $results['article']->id ?>" />
-      <dt><label for="role">Vote:</label></dt>
+      <dt><label for="rating">Vote:</label></dt>
       <dd>
         <input type="radio" name="rating" value="1">1<br>
         <input type="radio" name="rating" value="2">2<br>

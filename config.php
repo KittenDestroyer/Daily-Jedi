@@ -17,6 +17,7 @@ require( CLASS_PATH . "/Database.php" );
 require( CLASS_PATH . "/Image.php" );
 require( CLASS_PATH . "/Language.php" );
 require( CLASS_PATH . "/Comment.php");
+require( CLASS_PATH . "/Vote.php" );
 
 function handleException( $exception ) {
 	echo "Error: ";
