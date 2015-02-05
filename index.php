@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require( "config.php" );
 require( "language.php" );
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
@@ -23,6 +21,9 @@ switch ( $action ) {
 	  break;
 	case 'comment':
 	  comment();
+	  break;
+	case 'vote':
+	  vote();
 	  break;
 	default:
 	  homepage();
@@ -50,16 +51,33 @@ function viewArticle() {
 	$results = array();
 	$results['article'] = Article::getById((int) $_GET["articleId"]);
 	$results['comments'] = Comment::getList((int) $_GET["articleId"]);
+	$votes = Vote::allVotes((int) $_GET['articleId']);
+	$userVote = Vote::userVote($_SESSION['id'], (int) $_GET['articleId']);
 	global $globals;
 	$results['pageTitle'] = $results['article']->title;
 	require( TEMPLATE_PATH . "/viewArticle.php" );
+
+	if ( isset( $_GET['status'] ) ) {
+		if ( $_GET['status'] == "voteAdded" ) $results['statusMessage'] = "Your vote has been added.";
+	}
 }
 
 function comment() {
 	if (isset( $_POST['saveChanges'] ) ) {
-	  $comment = new Comment;
+	  $comment = new Comment();
 	  $comment->storeForm($_POST);
 	  $comment->insert();
+	  header("Location: index.php?action=viewArticle&status=voteAdded&articleId=".$_POST['articleId']);
+	} else {
+		require( TEMPLATE_PATH . "/viewArticle.php" );
+	}
+}
+
+function vote() {
+	if (isset( $_POST['saveChanges'] ) ) {
+	  $vote = new Vote();
+	  $vote->storeForm($_POST);
+	  $vote->insert();
 	  header("Location: index.php?action=viewArticle&articleId=".$_POST['articleId']);
 	} else {
 		require( TEMPLATE_PATH . "/viewArticle.php" );

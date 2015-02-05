@@ -39,5 +39,9 @@ class Comment {
 		$conn->bind(":comment", $this->comment);
 		$conn->execute();
 	}
+
+	public function delete() {
+		$conn
+	}
 }
 ?>
