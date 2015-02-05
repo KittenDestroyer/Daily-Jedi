@@ -16,7 +16,7 @@ class Vote {
 		$this->__construct( $params );
 	}
 
-	public static function userVote($user_id, $articleId) {
+	public static function getRating($user_id, $articleId) {
 		$conn = new Database();
 		$conn->query("SELECT rating FROM rating WHERE user_id = :user_id AND articleId = :articleId");
 		$conn->bind(":user_id", $user_id);
@@ -26,6 +26,18 @@ class Vote {
         $conn = null;
         return $row['rating'];
         //if ( $row ) return new Vote( $row );
+	}
+
+	public static function userVote($user_id, $articleId) {
+		$conn = new Database();
+		$conn->query("SELECT * FROM rating WHERE user_id = :user_id AND articleId = :articleId");
+		$conn->bind(":user_id", $user_id);
+		$conn->bind(":articleId", $articleId);
+		$conn->execute();
+		$row = $conn->singleFetched();
+        $conn = null;
+        //return $row['rating'];
+        if ( $row ) return new Vote( $row );
 	}
 
 	public static function allVotes($articleId) {
@@ -53,6 +65,14 @@ class Vote {
 		$conn->bind(":user_id", $this->user_id);
 		$conn->execute();
 		$this->id = $conn->lastInsertId();
+		$conn = null;
+	}
+
+	public function delete() {
+		$conn = new Database();
+		$conn->query("DELETE FROM rating WHERE id = :id LIMIT 1");
+		$conn->bind(":id", $this->id);
+		$conn->execute();
 		$conn = null;
 	}
 }

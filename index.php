@@ -22,6 +22,12 @@ switch ( $action ) {
 	case 'comment':
 	  comment();
 	  break;
+	case 'deleteComment':
+	  deleteComment();
+	  break;
+	case 'deleteVote':
+	  deleteVote();
+	  break;
 	case 'vote':
 	  vote();
 	  break;
@@ -52,7 +58,7 @@ function viewArticle() {
 	$results['article'] = Article::getById((int) $_GET["articleId"]);
 	$results['comments'] = Comment::getList((int) $_GET["articleId"]);
 	$votes = Vote::allVotes((int) $_GET['articleId']);
-	$userVote = Vote::userVote($_SESSION['id'], (int) $_GET['articleId']);
+	$userVote = Vote::getRating($_SESSION['id'], (int) $_GET['articleId']);
 	global $globals;
 	$results['pageTitle'] = $results['article']->title;
 	require( TEMPLATE_PATH . "/viewArticle.php" );
@@ -71,6 +77,19 @@ function comment() {
 	} else {
 		require( TEMPLATE_PATH . "/viewArticle.php" );
 	}
+}
+
+function deleteComment() {
+
+	$comment = Comment::getById((int) $_GET["commentId"]);
+	$comment->delete();
+	header("Location: index.php?action=viewArticle&articleId=".$_GET['articleId']);
+}
+
+function deleteVote() {
+	$vote = Vote::userVote($_SESSION['id'],(int) $_GET['articleId']);
+	$vote->delete();
+	header("Location: index.php?action=viewArticle&articleId=".$_GET['articleId']);
 }
 
 function vote() {

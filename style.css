@@ -217,6 +217,12 @@ label {
 	font-size:1.3em;
 }
 
+#comments a {
+	text-align: center;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:red;
+}
+
 #comment {
 	width:10em;
 	border:solid 1px;

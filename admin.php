@@ -194,6 +194,28 @@ function editSite() {
 	}
 }
 
+function newParameter() {
+	$results = array();
+	global $globals;
+	$results['pageTitle'] = $globals['MAIN_TITLE'];
+	if( isset( $_POST['saveChanges'] ) ) {
+		$language = new Language();
+		$language->storeForm( $_POST );
+		if (isset($_POST['lang'] ) ) {
+			if ( $_POST['lang'] == "en") {
+			  $language->inserten();
+			} elseif ( $_POST['lang'] == "ua" ) {
+				$language->insertua();
+			} else {
+				return false;
+			}
+		}
+		header("Location: admin.php?status=changesSaved");
+	} else {
+		require(TEMPLATE_PATH . "/editSite.php");
+	}
+}
+
 function upload() {
 	if( isset( $_POST['upload'] ) ) {
 		move_uploaded_file($_FILES["image"]["tmp_name"],"/var/www/html/test.com/images/" . $_FILES["image"]["name"]);

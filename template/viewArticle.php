@@ -31,6 +31,7 @@
     </form>
 <?php } else { ?>
   <h1>Your rating is <?php echo $userVote ?></h1>
+  <p><a href="index.php?action=deleteVote&amp;articleId=<?php echo $results['article']->id ?>">Delete vote</a></p>
 <?php } ?>
   </div>
 <?php } ?>
@@ -52,8 +53,13 @@
 	<div id="comment">
       <dt>Author:</dt>
         <dd><?php echo $comment->author ?></dd>
+      <dt>Topic:</dt>
+        <dd><?php echo $comment->topic ?></dd>
       <dt>Comment:</dt>
         <dd><?php echo $comment->comment ?></dd>
+<?php if ( isset($_SESSION['role_id'] ) == "admin" ) { ?>
+  <p><a href="index.php?action=deleteComment&amp;articleId=<?php echo $results['article']->id ?>&amp;commentId=<?php echo $comment->id ?>" onclick="return confirm('Delete this comment?')">Delete comment</a></p>
+<?php } ?>
     </div>
 <?php } ?>
 	</dl>
@@ -63,6 +69,7 @@
     <form action="index.php?action=comment" method="post">
       <input type="hidden" name="articleId" value="<?php echo $results['article']->id ?>" />
       <input type="hidden" name="author" value="<?php echo $_SESSION['username'] ?>" />
+      <input type="text" name="topic" placeholder="Topic" /><br>
       <textarea name="comment" placeholder="Place your coment here"></textarea><br>
       <input type="submit" name="saveChanges" value="<?php echo $globals['SAVECHANGES'] ?>" />
     </form>
