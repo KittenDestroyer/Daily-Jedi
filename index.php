@@ -99,7 +99,9 @@ function vote() {
 	  $vote->insert();
 	  header("Location: index.php?action=viewArticle&articleId=".$_POST['articleId']);
 	} else {
+
 		require( TEMPLATE_PATH . "/viewArticle.php" );
+		
 	}
 }
 

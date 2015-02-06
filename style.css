@@ -173,7 +173,6 @@ label {
 	box-shadow: 5px #900000;
 
 }
-
 .button:hover {
 	border:solid;
 	border-color: #900000;
@@ -187,7 +186,6 @@ label {
 	border-top:solid;
 	border-color: yellow;
 }
-
 .adminHeader {
 	float:right;
 	text-align: right;

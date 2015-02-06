@@ -6,7 +6,8 @@ class Comment {
 	public $topic;
 	public $comment;
 
-	public function __construct( $data = array() ) {
+	public function __construct($data = array()) {
+
 		if (isset($data['id'] ) ) $this->id = $data['id'];
 		if (isset($data['articleId'] ) ) $this->articleId = $data['articleId'];
 		if (isset($data['author'] ) ) $this->author = $data['author'];
@@ -14,7 +15,7 @@ class Comment {
 		if (isset($data['comment'] ) ) $this->comment = $data['comment'];
 	}
 
-	public function storeForm( $params ) {
+	public function storeForm($params) {
 		$this->__construct($params);
 	}
 
@@ -24,6 +25,7 @@ class Comment {
 		$conn->bind(":commentId", $commentId);
 		$conn->execute();
 		$row = $conn->singleFetched();
+		$conn = null;
 		if ($row) return new Comment($row);
 	}
 
