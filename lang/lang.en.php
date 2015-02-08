@@ -1,6 +1,7 @@
 <?php
 /*Language: English */
-
+	
+	//$_SESSION['lang'] = 'en';
 	$GLOBALS['params'] = Language::listParamsen();
 
 	/*$params = array();

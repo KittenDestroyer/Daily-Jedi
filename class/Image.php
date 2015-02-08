@@ -22,6 +22,15 @@ class Image {
       $conn = null;
     }
 
+    public function update( $user_id, $imagepath ) {
+      $conn = new Database();
+      $conn->query("UPDATE images SET imagepath = :imagepath WHERE user_id = :user_id");
+      $conn->bind( ":user_id", $user_id);
+      $conn->bind( ":imagepath", $imagepath );
+      $conn->execute();
+      $conn = null;
+    }
+
     public static function getImage( $id ) {
     	$conn = new Database();
     	$conn->query("SELECT * FROM images WHERE user_id = :id");

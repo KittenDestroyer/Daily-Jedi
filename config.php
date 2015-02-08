@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(E_PARSE);
 date_default_timezone_set( "Europe/Kiev");
 define( "DB_DSN", "mysql:host=localhost;dbname=work" );
 define( "DB_USERNAME", "root" );
@@ -16,6 +15,8 @@ require( CLASS_PATH . "/User.php" );
 require( CLASS_PATH . "/Database.php" );
 require( CLASS_PATH . "/Image.php" );
 require( CLASS_PATH . "/Language.php" );
+require( CLASS_PATH . "/Comment.php");
+require( CLASS_PATH . "/Vote.php" );
 
 function handleException( $exception ) {
 	echo "Error: ";

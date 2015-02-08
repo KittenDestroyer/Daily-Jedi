@@ -1,18 +1,38 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 class Language {
 
 	private $parameter;
 	private $value;
-	private $table;
 
 	public function __construct( $data = array() ) {
     if ( isset( $data['parameter'] ) ) $this->parameter = $data['parameter'];
     if ( isset( $data['value'] ) ) $this->value = $data['value'];
-    if ( isset( $data['table'] ) ) $this->table = $data['table'];
 	}
 
     public function storeForm( $params ) {
       $this->__construct( $params );
+    }
+
+    public function inserten() {
+      $conn->beginTransaction();
+      $conn = new Database();
+      $conn->query("INSERT INTO paramsen (parameter, value) VALUES (:parameter, :value)");
+      $conn->bind( ":parameter", $this->parameter );
+      $conn->bind( ":value", $this->value );
+      $conn->endTransaction();
+      $conn->execute();
+      $conn = null;
+    }
+
+    public function insertua() {
+      $conn = new Database();
+      $conn->query("INSERT INTO paramsua ('parameter', 'value') VALUES (':parameter', ':value')");
+      $conn->bind(":parameter", $this->parameter);
+      $conn->bind(":value", $this->value);
+      $conn->execute();
+      $conn = null;
     }
 
     public function updateen() {
@@ -61,7 +81,7 @@ class Language {
       $conn->query("SELECT * FROM paramsua");
       //$conn->bind( ":table", $table);
       $conn->execute();
-      //$list = array();
+      $list = array();
 
       $row = $conn->allFetched();
       foreach ( $row as $lang )

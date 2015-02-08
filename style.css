@@ -1,6 +1,6 @@
-body {
+/*body {
 	height: 100%;
-	background-image: url(http://i.ytimg.com/vi/odmvYDXwhpg/maxresdefault.jpg);
+	background-image: url(maxresdefault.jpg);
 	background-color:black;
 	background-attachment: scroll;
 }
@@ -21,6 +21,10 @@ p {
 table {
 	font-family: 'Open Sans Condensed', sans-serif;
 	color:yellow;
+}
+
+table, th, td {
+    border: 1px solid;
 }
 
 #avatar {
@@ -74,6 +78,8 @@ table {
 	color:white;
 	clear:both;
 	font-size: 1.2em;
+	padding:5px;
+	overflow:auto;
 	margin-left: 100px;
 	margin-right: 100px;
 	margin-top: 100px;
@@ -169,7 +175,6 @@ label {
 	box-shadow: 5px #900000;
 
 }
-
 .button:hover {
 	border:solid;
 	border-color: #900000;
@@ -178,11 +183,11 @@ label {
 }
 
 .footer {
+	position:absolute;
 	clear:both;
 	border-top:solid;
 	border-color: yellow;
 }
-
 .adminHeader {
 	float:right;
 	text-align: right;
@@ -192,8 +197,41 @@ label {
 }
 
 #articleList {
-	float:left;
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size:1.3em;
 	color:yellow;
 }
+
+#comments {
+	width:40%;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:yellow;
+}
+
+#comments dt {
+	font-size:0.9em;
+}
+
+#comments dd {
+	font-size:1.3em;
+}
+
+#comments a {
+	text-align: center;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:red;
+}
+
+#comment {
+	width:10em;
+	border:solid 1px;
+	border-color:yellow;
+}
+
+#rating {
+	border:solid 1px;
+	background-color: black;
+	position:absolute;
+	margin-left:60em;
+	color:yellow;
+}*/
