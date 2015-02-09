@@ -4,15 +4,17 @@
   public $id;
   public $pubDate;
   public $title;
+  public $title_ua;
   public $content;
-  public $language;
+  public $content_ua;
 
   public function __construct($data = array()) {
     if ( isset( $data['id'] ) ) $this->id = $data['id'];
     if ( isset( $data['pubDate'] ) ) $this->pubDate = $data['pubDate'];
     if ( isset( $data['title'] ) ) $this->title = $data['title'];
+    if ( isset( $data['title_ua'] ) ) $this->title_ua = $data['title_ua'];
     if ( isset( $data['content'] ) ) $this->content = $data['content'];
-    if ( isset( $data['language'] ) ) $this->language = $data['language'];
+    if ( isset( $data['content_ua'] ) ) $this->content_ua = $data['content_ua'];
   }
 
   public function storeFormValues( $params ) {
@@ -39,11 +41,9 @@
     if ( $row ) return new Article( $row );
   }
 
-  public static function getList( $language, $page, $numRows=1000000, $order="pubDate DESC" ) {
+  public static function getList( $page, $numRows=1000000, $order="pubDate DESC" ) {
     $conn = new Database();
-    $conn->query("SELECT *, UNIX_TIMESTAMP(pubDate) AS pubDate FROM articles WHERE language = :language
-            ORDER BY " . $order . " LIMIT :page, :numRows");
-    $conn->bind( ":language", $language );    
+    $conn->query("SELECT *, UNIX_TIMESTAMP(pubDate) AS pubDate FROM articles ORDER BY " . $order . " LIMIT :page, :numRows"); 
     $conn->bind( ":numRows", $numRows );
     $conn->bind( ":page", $page );
     $conn->execute();
@@ -64,11 +64,12 @@
     if ( !is_null( $this->id ) ) trigger_error ( "Article with such id is already exists.", E_USER_ERROR );
     $conn = new Database();
     $conn->beginTransaction();
-    $conn->query("INSERT INTO articles ( pubDate, title, content, language ) VALUES ( FROM_UNIXTIME(:pubDate), :title, :content, :language )");
+    $conn->query("INSERT INTO articles ( pubDate, title, title_ua, content, content_ua) VALUES ( FROM_UNIXTIME(:pubDate), :title, :title_ua, :content, :content_ua)");
     $conn->bind( ":pubDate", $this->pubDate );
     $conn->bind( ":title", $this->title );
+    $conn->bind( ":title_ua", $this->title_ua );
     $conn->bind( ":content", $this->content );
-    $conn->bind( ":language", $this->language );
+    $conn->bind( ":content_ua", $this->content_ua );
     $conn->endTransaction();
     $conn->execute();
     $this->id = $conn->lastInsertId();
@@ -79,10 +80,12 @@
     if ( is_null( $this->id ) ) trigger_error ( "There is no article with such id.", E_USER_ERROR );
     $conn = new Database();
     $conn->beginTransaction();
-    $conn->query("UPDATE articles SET pubDate=FROM_UNIXTIME(:pubDate), title=:title, content=:content WHERE id = :id");
+    $conn->query("UPDATE articles SET pubDate=FROM_UNIXTIME(:pubDate), title=:title, title_ua=:title_ua, content=:content, content_ua=:content_ua WHERE id = :id");
     $conn->bind( ":pubDate", $this->pubDate );
     $conn->bind( ":title", $this->title );
+    $conn->bind( ":title_ua", $this->title_ua );
     $conn->bind( ":content", $this->content );
+    $conn->bind( ":content_ua", $this->content_ua );
     $conn->bind( ":id", $this->id );
     $conn->endTransaction();
     $conn->execute();

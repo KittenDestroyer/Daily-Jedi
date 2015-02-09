@@ -40,7 +40,7 @@ function archive() {
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$results = array();
 	$language = $_SESSION['lang'];
-	$data = Article::getList($language, $offset, HOMEPAGE_NUM_ARTICLES );
+	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES );
 	global $globals;
 	$results['article'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
@@ -60,7 +60,11 @@ function viewArticle() {
 	$votes = Vote::allVotes((int) $_GET['articleId']);
 	$userVote = Vote::getRating($_SESSION['id'], (int) $_GET['articleId']);
 	global $globals;
-	$results['pageTitle'] = $results['article']->title;
+	if($_SESSION['lang'] == "ua") {
+	  $results['pageTitle'] = $results['article']->title_ua;
+	} else {
+	  $results['pageTitle'] = $results['article']->title;	
+	}
 	require( TEMPLATE_PATH . "/viewArticle.php" );
 
 	if ( isset( $_GET['status'] ) ) {
@@ -109,7 +113,7 @@ function homepage() {
 	$page = isset( $_GET["page"]) ? $_GET["page"] : 1;
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$language = $_SESSION['lang'];
-	$data = Article::getList($language, $offset, HOMEPAGE_NUM_ARTICLES );
+	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES );
 	$results = array();
 	global $globals;
 	$results['article'] = $data['results'];

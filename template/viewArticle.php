@@ -9,7 +9,11 @@
   <div class="statusMessage"><?php echo $results['statusMessage']; ?></div>
 <?php } ?>
 <?php } ?>
+<?php if($_SESSION['lang'] == "ua") { ?> 
+  <div class="content"><p><?php echo $results['article']->content_ua?></p></div>
+<?php } else { ?>
   <div class="content"><p><?php echo $results['article']->content?></p></div>
+<?php } ?>
     <h2 id="pubDate">Published on <?php echo date('j F Y', $results['article']->pubDate)?></h2>
 <?php if ( isset($_SESSION['role_id']) == "admin" || isset($_SESSION['role_id']) == "moderator" || isset($_SESSION['role_id']) == "user") { ?>
 <?php if ( $userVote == 0) { ?>
@@ -50,6 +54,7 @@
 
     <div id="comments">
 <?php foreach ( $results['comments'] as $comment) { ?>
+<?php if($comment->language != $_SESSION['lang']) continue; ?>
 	<div id="comment">
       <dt>Author:</dt>
         <dd><?php echo $comment->author ?></dd>
@@ -69,6 +74,7 @@
     <form action="index.php?action=comment" method="post">
       <input type="hidden" name="articleId" value="<?php echo $results['article']->id ?>" />
       <input type="hidden" name="author" value="<?php echo $_SESSION['username'] ?>" />
+      <input type="hidden" name="language" value="<?php echo $_SESSION['lang'] ?>" />
       <input type="text" name="topic" placeholder="Topic" /><br>
       <textarea name="comment" placeholder="Place your coment here"></textarea><br>
       <input type="submit" name="saveChanges" value="<?php echo $globals['SAVECHANGES'] ?>" />

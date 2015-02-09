@@ -12,9 +12,13 @@
 <?php } ?>
     <dl>
       <dt><label for="title">Article title</label></dt>
-        <dd><input type="text" id="title" name="title" placeholder="Name of the article" required autofocus maxlength="255" value="<?php echo htmlspecialchars( $results['article']->title)?>" /></dd>
+        <dd><input type="text" id="title" name="title" placeholder="Title of the article" required autofocus maxlength="255" value="<?php echo htmlspecialchars( $results['article']->title)?>" /></dd>
+      <dt><label for="title">Translated title</label></dt>
+        <dd><input type="text" id="title_ua" name="title_ua" placeholder="Translation of title" required autofocus maxlength="255" value="<?php echo htmlspecialchars( $results['article']->title_ua)?>" /></dd>  
       <dt><label for="content">Article content</label></dt>
         <dd><textarea name="content" id="content" placeholder="Content of the article" required maxlength="100000" style="height: 30em;"><?php echo htmlspecialchars( $results['article']->content) ?></textarea></dd>
+      <dt><label for="content">Translated content</label></dt>
+        <dd><textarea name="content_ua" id="content_ua" placeholder="Translation of the article" required maxlength="100000" style="height: 30em;"><?php echo htmlspecialchars( $results['article']->content_ua) ?></textarea></dd>
       <dt><label for="pubDate">Publication Date</label></dt>
         <dd><input type="date" name="pubDate" id="pubDate" placeholder="YYYY-MM-DD" required maxlength="10" value="<?php echo $results['article']->pubDate ? date('Y-m-d', $results['article']->pubDate) : "" ?>" /></dd>
     </dl>

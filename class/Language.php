@@ -16,19 +16,17 @@ class Language {
     }
 
     public function inserten() {
-      $conn->beginTransaction();
       $conn = new Database();
       $conn->query("INSERT INTO paramsen (parameter, value) VALUES (:parameter, :value)");
       $conn->bind( ":parameter", $this->parameter );
       $conn->bind( ":value", $this->value );
-      $conn->endTransaction();
       $conn->execute();
       $conn = null;
     }
 
     public function insertua() {
       $conn = new Database();
-      $conn->query("INSERT INTO paramsua ('parameter', 'value') VALUES (':parameter', ':value')");
+      $conn->query("INSERT INTO paramsua (parameter, value) VALUES (:parameter, :value)");
       $conn->bind(":parameter", $this->parameter);
       $conn->bind(":value", $this->value);
       $conn->execute();

@@ -5,6 +5,7 @@ class Comment {
 	public $author;
 	public $topic;
 	public $comment;
+	public $language;
 
 	public function __construct($data = array()) {
 
@@ -13,6 +14,7 @@ class Comment {
 		if (isset($data['author'] ) ) $this->author = $data['author'];
 		if (isset($data['topic'] ) ) $this->topic = $data['topic'];
 		if (isset($data['comment'] ) ) $this->comment = $data['comment'];
+		if (isset($data['language'] ) ) $this->language = $data['language'];
 	}
 
 	public function storeForm($params) {
@@ -48,11 +50,12 @@ class Comment {
 
 	public function insert() {
 		$conn = new Database();
-		$conn->query("INSERT INTO comments (articleId, author, topic, comment) VALUES (:articleId, :author, :topic, :comment)");
+		$conn->query("INSERT INTO comments (articleId, author, topic, comment, language) VALUES (:articleId, :author, :topic, :comment, :language)");
 		$conn->bind(":articleId", $this->articleId);
 		$conn->bind(":author", $this->author);
 		$conn->bind(":topic", $this->topic);
 		$conn->bind(":comment", $this->comment);
+		$conn->bind(":language", $this->language);
 		$conn->execute();
 		$this->id = $conn->lastInsertId();
 		$conn = null;

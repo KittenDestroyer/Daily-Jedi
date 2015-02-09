@@ -211,7 +211,15 @@ function newParameter() {
 	if( isset( $_POST['saveChanges'] ) ) {
 		$language = new Language();
 		$language->storeForm( $_POST );
+		if(isset($_POST['lang'])) {
+			if($_POST['lang'] == "en") {
 			  $language->inserten();
+			} elseif($_POST['lang'] == "ua") {
+				$language->insertua();
+			} else {
+				return false;
+			}
+		}
 		header("Location: admin.php?status=changesSaved");
 	} else {
 		require(TEMPLATE_PATH . "/editSite.php");
@@ -298,7 +306,7 @@ function listArticles() {
 	$offset = ($page - 1) * HOMEPAGE_NUM_ARTICLES;
 	$results = array();
 	$language = $_SESSION['lang'];
-	$data = Article::getList($language, $offset, HOMEPAGE_NUM_ARTICLES );
+	$data = Article::getList($offset, HOMEPAGE_NUM_ARTICLES );
 	$results['articles'] = $data['results'];
 	$results['totalRows'] = $data['totalRows'];
 	global $globals;

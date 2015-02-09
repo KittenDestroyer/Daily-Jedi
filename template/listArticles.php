@@ -26,9 +26,17 @@
         <td><?php echo date('j M Y', $article->pubDate)?></td>
         <td>
 <?php if ( $_SESSION['role_id'] == "admin" || $_SESSION['role_id'] == "moderator" ) { ?>
-          <a href="admin.php?action=editArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title ?></a>
+<?php if($_SESSION['lang'] == "ua") { ?>
+          <a href="admin.php?action=editArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title_ua ?></a>
 <?php } else { ?>
-          <a href="index.php?action=viewArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title ?></a>
+          <a href="admin.php?action=editArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title ?></a>
+<?php } ?>
+<?php } else { ?>
+<?php if($_SESSION['lang'] == "ua") { ?>
+          <a href="admin.php?action=viewArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title_ua ?></a>
+<?php } else { ?>
+          <a href="admin.php?action=viewArticle&amp;articleId=<?php echo $article->id?>"><?php echo $article->title ?></a>
+<?php } ?>
 <?php } ?>
         </td>
       </tr>
