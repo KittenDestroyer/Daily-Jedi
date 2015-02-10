@@ -2,18 +2,14 @@
 	width:1024px;
 	margin:auto;
 	height: 100%;
-	background-color:transparent;
-	background-attachment: fixed;
-	background-repeat:no-repeat;
-	border-style: solid;
-	border-color: white;
-	border-width: 1px;
-	box-shadow: 5px, 5px, 5px, white;
+	background-image: url(maxresdefault.jpg);
+	background-color:black;
+	background-attachment: scroll;
 }
 html, body {
 	margin:0px;
 	padding:0px;
-	background-image:url(maxresdefault.jpg);
+	background-color:black;
 }
 #navigation {
 	height:50px;
@@ -88,10 +84,9 @@ table, th, td {
 	margin-top: 100px;
 	margin-bottom: 50px;
 	border-style:solid;
-	border-radius:25px;
-	border-width:3px;
-	border-color:black;
-	box-shadow: 0px 0px 10px #4B81FC,0px 0px 20px #1C61FF,0px 0px 30px #1C61FF,0px 0px 40px #0752FF,0px 0px 50px #0752FF,0px 0px 60px #0752FF;
+	border-width:10px;
+	border-color:yellow;
+	box-shadow: 0px 0px 5px yellow;
 }
 .sampleContent {
 	font-family: 'Open Sans Condensed', sans-serif;
@@ -134,7 +129,6 @@ input {
 	color:white;
 	border:solid;
 	border-color: yellow;
-	border-radius:25px;
 	border-width: 3px;
 	background-color:transparent;
 	box-shadow: 3px white;
@@ -173,7 +167,8 @@ label {
 	box-shadow: 5px #900000;
 }
 .footer {
-	background-color:transparent;
+	background-color:orange;
+
 	clear:both;
 	border-top:solid;
 	border-color: yellow;
@@ -210,13 +205,6 @@ label {
 	width:40em;
 	border:solid 1px;
 	border-color:yellow;
-}
-.commentForm {
-	background-color:transparent;
-	margin-bottom: 2em;
-	width:250px;
-	border-top:solid;
-	border-color: yellow;
 }
 #rating {
 	border:solid 1px;

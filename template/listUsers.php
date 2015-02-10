@@ -1,30 +1,30 @@
-<?php include ( "header.php" ); ?>
+<?php  include ( "header.php" ); ?>
   <div id="darkSide">
   <div class="adminHeader">
-    <p><?php echo $globals['YOU_ARE_LOGGED'] ?> <b><a href="admin.php?action=editUser&amp;userId=<?php echo htmlspecialchars( $_SESSION['id'] ) ?>"><?php echo htmlspecialchars( $_SESSION['username'] ) ?></a></b>. <a href="admin.php?action=logout"?><?php echo $globals['LOGOUT'] ?></a></p><br>
-    <p id="avatar"><img src="<?php echo $_SESSION['image'] ?>" alt="Avatar" height="100" width="100" /></p>
+    <p><?php  echo $globals['YOU_ARE_LOGGED']  ?> <b><a href="admin.php?action=editUser&amp;userId=<?php  echo htmlspecialchars( $_SESSION['id'] )  ?>"><?php  echo htmlspecialchars( $_SESSION['username'] )  ?></a></b>. <a href="admin.php?action=logout"?><?php  echo $globals['LOGOUT']  ?></a></p><br>
+    <p id="avatar"><img src="<?php  echo $_SESSION['image']  ?>" alt="Avatar" height="100" width="100" /></p>
   </div>
-<?php if ( isset( $results['errorMessage'] ) ) { ?>
-  <div class="errorMessage"><?php echo $results['errorMessage']; ?></div>
-<?php } ?>
-<?php if ( isset( $results['statusMessage'] ) ) { ?>
-  <div class="statusMessage"><?php echo $results['statusMessage']; ?></div>
-<?php } ?>
+<?php  if ( isset( $results['errorMessage'] ) ) { ?>
+  <div class="errorMessage"><?php  echo $results['errorMessage']; ?></div>
+<?php  } ?>
+<?php  if ( isset( $results['statusMessage'] ) ) { ?>
+  <div class="statusMessage"><?php  echo $results['statusMessage']; ?></div>
+<?php  } ?>
   <div id="articleList">
     <dl>
-      <?php foreach ( $results["users"] as $user ) { ?>
+      <?php  foreach ( $results["users"] as $user ) { ?>
         <h2>
-<?php if ( $_SESSION['role_id'] == "admin" ) { ?>
-          <dt><a href="admin.php?action=editUser&amp;userId=<?php echo $user->id ?>"><?php echo $user->username ?></a></dt>
-            <dd><?php echo $user->role_id ?></dd>
-<?php } else { ?>
-          <dt><p><?php echo $user->username ?></p></dt>
-            <dd><?php echo $user->role_id ?></dd>
-<?php } ?>
+<?php  if ( $_SESSION['role_id'] == "admin" ) { ?>
+          <dt><a href="admin.php?action=editUser&amp;userId=<?php  echo $user->id  ?>"><?php  echo $user->username  ?></a></dt>
+            <dd><?php  echo $user->role_id  ?></dd>
+<?php  } else { ?>
+          <dt><p><?php  echo $user->username  ?></p></dt>
+            <dd><?php  echo $user->role_id  ?></dd>
+<?php  } ?>
         </h2>
-      <?php } ?>
+      <?php  } ?>
   </div>
-  <a href="admin.php?action=listUsers"><?php echo $globals['PADAWANS'] ?></a>
-  <a href="admin.php?action=listArticles"><?php echo $globals['ARTICLES'] ?></a>
+  <a href="admin.php?action=listUsers"><?php  echo $globals['PADAWANS']  ?></a>
+  <a href="admin.php?action=listArticles"><?php  echo $globals['ARTICLES']  ?></a>
   </div>
-<?php include('footer.php'); ?>
+<?php  include('footer.php'); ?>
